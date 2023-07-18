@@ -12,9 +12,11 @@ export function start() {
       whitespaceBreak: true,
     })
   );
+}
 
+export function instructions() {
   console.log(
-    chalk.underline.cyan("Files") +
+    chalk.underline.cyan("\nFiles") +
       chalk.cyan(
         ": Please drag-and-drop the File you want to encrypt or decrypt into the terminal\n"
       )
