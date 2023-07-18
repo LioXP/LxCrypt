@@ -10,6 +10,7 @@ export function check() {
     modules.homepage.start();
     modules.homepage.instructions();
   } else {
+    fs.mkdirSync(app_folder, { recursive: true });
     modules.setup.start();
   }
 }

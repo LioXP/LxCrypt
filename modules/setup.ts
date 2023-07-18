@@ -3,7 +3,8 @@
 
 import * as modules from "../module-manager.ts";
 
-export function start() {
+export async function start() {
   modules.homepage.start();
-  console.log("Setup");
+  const password_hash = await modules.auth.setup();
+  modules.rsa.setup(password_hash);
 }
