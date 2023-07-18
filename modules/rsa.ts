@@ -4,6 +4,7 @@ import path from "node:path";
 import fs from "node:fs";
 import ora from "npm:ora";
 import { exit } from "node:process";
+import process from "node:process";
 
 export function setup(password_hash: string | undefined) {
   console.log(password_hash);
@@ -23,22 +24,20 @@ export function setup(password_hash: string | undefined) {
         type: "pkcs8",
         format: "pem",
         cipher: "aes-256-cbc",
-        passphrase: "top secret",
+        passphrase: password_hash,
       },
     },
-    (err, publicKey, privateKey) => {
-      // Handle errors and use the generated key pair.
+    (err: Error | null, public_key: string, private_key: string) => {
+      if (err !== undefined) {
+        spinner.fail("Error!");
+      }
+      //note .lxcf = LxCrypt File
+      fs.writeFileSync(path.join(app_folder, "private_key.lxcf"), private_key);
+      fs.writeFileSync(path.join(app_folder, "public_key.lxcf"), public_key);
+      spinner.succeed("Initialization successful");
     }
   );
-
-  const private_key = key_data.exportKey("pkcs8-private-pem");
-  const public_key = key_data.exportKey("pkcs8-public-pem");
-
-  //note .lxcf = LxCrypt File
-  fs.writeFileSync(path.join(app_folder, "private_key.lxcf"), private_key);
-  fs.writeFileSync(path.join(app_folder, "public_key.lxcf"), public_key);
-
-  spinner.succeed("Initialization successful");
-
-  exit;
+  process.stdin.once("data", function () {
+    exit;
+  });
 }

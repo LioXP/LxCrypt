@@ -22,7 +22,7 @@ export async function setup() {
         "Are you sure? We are not able to restore access to your account without this password",
       initial: false,
     });
-    if (confirmation.value === "y") {
+    if (confirmation.value === true) {
       const password_hash = modules.hash.hash(password.input);
       return password_hash;
     } else {

@@ -8,7 +8,6 @@ export function check() {
 
   if (fs.existsSync(app_folder)) {
     modules.homepage.start();
-    modules.homepage.instructions();
   } else {
     fs.mkdirSync(app_folder, { recursive: true });
     modules.setup.start();
