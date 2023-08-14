@@ -3,7 +3,6 @@ import os from "node:os";
 import path from "node:path";
 import fs from "node:fs";
 import ora from "npm:ora";
-import { exit } from "node:process";
 import process from "node:process";
 
 export function setup(password_hash: string | undefined) {
@@ -28,8 +27,10 @@ export function setup(password_hash: string | undefined) {
       },
     },
     (err: Error | null, public_key: string, private_key: string) => {
-      if (err !== undefined) {
+      if (err) {
         spinner.fail("Error!");
+        console.log(err);
+        process.exit(1);
       }
       //note .lxcf = LxCrypt File
       fs.writeFileSync(path.join(app_folder, "private_key.lxcf"), private_key);
@@ -37,7 +38,4 @@ export function setup(password_hash: string | undefined) {
       spinner.succeed("Initialization successful");
     }
   );
-  process.stdin.once("data", function () {
-    exit;
-  });
 }
