@@ -1,17 +1,30 @@
-import crypto from "node:crypto";
+import OpenCrypto from "npm:opencrypto";
 import os from "node:os";
 import path from "node:path";
-import fs from "node:fs";
+/* import fs from "node:fs"; */
 import ora from "npm:ora";
-import process from "node:process";
+/* import process from "node:process"; */
 
 export function setup(password_hash: string | undefined) {
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as (typeof OpenCrypto)["default"])();
+
   console.log(password_hash);
+
   const app_folder = path.join(os.homedir(), "LxCrypt");
 
   const spinner = ora("Initializing Certificates").start();
 
-  crypto.generateKeyPair(
+  const usage = ["encrypt", "decrypt", "wrapKey", "unwrapKey"];
+  crypt
+    .getRSAKeyPair("4096", "SHA-512", "RSA-OAEP", usage, true)
+    // deno-lint-ignore no-explicit-any
+    .then((keyPair: any) => {
+      console.log(keyPair.publicKey);
+      console.log(keyPair.privateKey);
+    });
+
+  /* crypto.generateKeyPair(
     "rsa",
     {
       modulusLength: 4096,
@@ -37,5 +50,5 @@ export function setup(password_hash: string | undefined) {
       fs.writeFileSync(path.join(app_folder, "public_key.lxcf"), public_key);
       spinner.succeed("Initialization successful");
     }
-  );
+  ); */
 }
