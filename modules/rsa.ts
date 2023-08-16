@@ -1,13 +1,13 @@
-import OpenCrypto from "npm:opencrypto";
+import OpenCrypto from "npm:deno-opencrypto";
 import os from "node:os";
 import path from "node:path";
 /* import fs from "node:fs"; */
 import ora from "npm:ora";
-/* import process from "node:process"; */
+import process from "node:process";
 
 export function setup(password_hash: string | undefined) {
   // deno-lint-ignore no-explicit-any
-  const crypt = new (OpenCrypto as any as (typeof OpenCrypto)["default"])();
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
   console.log(password_hash);
 
@@ -15,13 +15,25 @@ export function setup(password_hash: string | undefined) {
 
   const spinner = ora("Initializing Certificates").start();
 
-  const usage = ["encrypt", "decrypt", "wrapKey", "unwrapKey"];
   crypt
-    .getRSAKeyPair("4096", "SHA-512", "RSA-OAEP", usage, true)
-    // deno-lint-ignore no-explicit-any
-    .then((keyPair: any) => {
-      console.log(keyPair.publicKey);
-      console.log(keyPair.privateKey);
+    .getRSAKeyPair(
+      4096,
+      "SHA-512",
+      "RSA-OAEP",
+      ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
+      true
+    )
+    .then((keyPair: CryptoKeyPair) => {
+      crypt
+        .cryptoPrivateToPem(keyPair.privateKey)
+        .then((privatePem: string) => {
+          console.log(privatePem);
+        });
+      crypt.cryptoPublicToPem(keyPair.publicKey).then((publicPem: string) => {
+        console.log(publicPem);
+        spinner.succeed("Initialization successful");
+        process.exit(1);
+      });
     });
 
   /* crypto.generateKeyPair(
