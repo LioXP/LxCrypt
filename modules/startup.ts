@@ -7,7 +7,8 @@ export function check() {
   const app_folder = path.join(os.homedir(), "LxCrypt");
 
   if (fs.existsSync(app_folder)) {
-    modules.homepage.start();
+    modules.logo.print();
+    modules.auth.login();
   } else {
     fs.mkdirSync(app_folder, { recursive: true });
     modules.setup.start();
