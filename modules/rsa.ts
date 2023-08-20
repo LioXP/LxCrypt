@@ -1,4 +1,4 @@
-import OpenCrypto from "npm:deno-opencrypto";
+import OpenCrypto from "npm:deno-opencrypto@2.1.0";
 import os from "node:os";
 import path from "node:path";
 import fs from "node:fs";

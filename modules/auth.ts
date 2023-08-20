@@ -2,7 +2,10 @@ import * as modules from "../module-manager.ts";
 import prompts from "npm:prompts";
 import chalk from "npm:chalk";
 import process from "node:process";
-import OpenCrypto from "npm:deno-opencrypto";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import OpenCrypto from "npm:deno-opencrypto@2.1.0";
 
 export async function setup() {
   //todo explain
@@ -46,18 +49,31 @@ export async function setup() {
 export async function login() {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+
+  const app_folder = path.join(os.homedir(), "LxCrypt");
+
   const password = await prompts({
     type: "password",
     name: "input",
     message: "Please enter your password",
   });
-  const password_hash = modules.hash.hash(password.input);
+
+  const private_key_file = fs.readFileSync(
+    path.join(app_folder, "private_key.lxcf")
+  );
 
   crypt
-    .decryptPrivateKey(encryptedPrivateKey, password_hash, options)
-    .then((decryptedPrivateKey: CryptoKey) => {
-      console.log(decryptedPrivateKey);
+    .decryptPrivateKey(
+      private_key_file.toString(),
+      modules.hash.hash(password.input),
+      {
+        name: "RSA-OAEP",
+        hash: { name: "SHA-512" },
+        usages: ["decrypt", "unwrapKey"],
+        isExtractable: true,
+      }
+    )
+    .then((private_key: CryptoKey) => {
+      console.log(private_key);
     });
-
-  Deno.exit();
 }
