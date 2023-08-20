@@ -1,6 +1,6 @@
 import figlet from "npm:figlet";
 
-export function start() {
+export function print() {
   console.clear();
   console.log(
     figlet.textSync("LxCrypt", {
