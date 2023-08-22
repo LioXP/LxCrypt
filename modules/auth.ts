@@ -74,6 +74,6 @@ export async function login() {
       }
     )
     .then((private_key: CryptoKey) => {
-      console.log(private_key);
+      modules.homepage.initialize(private_key);
     });
 }
