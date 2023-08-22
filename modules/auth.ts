@@ -5,7 +5,7 @@ import process from "node:process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import OpenCrypto from "npm:deno-opencrypto@2.1.0";
+import OpenCrypto from "npm:deno-opencrypto";
 
 export async function setup() {
   //todo explain
