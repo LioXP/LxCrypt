@@ -68,9 +68,9 @@ export async function login() {
       modules.hash.hash(password.input),
       {
         name: "RSA-OAEP",
-        hash: { name: "SHA-512" },
+        hash: "SHA-512",
         usages: ["decrypt", "unwrapKey"],
-        isExtractable: true,
+        isExtractable: false,
       }
     )
     .then((private_key: CryptoKey) => {

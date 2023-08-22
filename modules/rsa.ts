@@ -17,8 +17,7 @@ export function setup(password_hash: string) {
 
   crypt
     .getRSAKeyPair(
-      /* 7680, */
-      4096,
+      7680,
       "SHA-512",
       "RSA-OAEP",
       ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
