@@ -8,7 +8,6 @@ import path from "node:path";
 import OpenCrypto from "npm:deno-opencrypto";
 
 export async function setup() {
-  //todo explain
   const password = await prompts({
     type: "password",
     name: "input",
@@ -28,10 +27,9 @@ export async function setup() {
       initial: false,
     });
     if (confirmation.value === true) {
-      const password_hash = modules.hash.hash(password.input);
+      const password_hash = modules.hash.create(password.input);
       return password_hash;
     } else {
-      //todo explain
       console.log('You picked "no". Press any key to retry');
       process.stdin.once("data", function () {
         modules.setup.start();
@@ -65,7 +63,7 @@ export async function login() {
   crypt
     .decryptPrivateKey(
       private_key_file.toString(),
-      modules.hash.hash(password.input),
+      modules.hash.create(password.input),
       {
         name: "RSA-OAEP",
         hash: "SHA-512",
