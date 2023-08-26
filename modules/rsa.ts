@@ -1,6 +1,5 @@
+import * as modules from "../module-manager.ts";
 import OpenCrypto from "npm:deno-opencrypto";
-import os from "node:os";
-import path from "node:path";
 import fs from "node:fs";
 import ora from "npm:ora";
 import chalk from "npm:chalk";
@@ -8,8 +7,6 @@ import chalk from "npm:chalk";
 export function setup(password_hash: string) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
-
-  const app_folder = path.join(os.homedir(), "LxCrypt");
 
   const spinner = ora(
     "Initializing Certificates. This might take a while depending on your CPU!"
@@ -25,7 +22,7 @@ export function setup(password_hash: string) {
     )
     .then((keyPair: CryptoKeyPair) => {
       crypt.cryptoPublicToPem(keyPair.publicKey).then((publicPem: string) => {
-        fs.writeFileSync(path.join(app_folder, "public_key.lxcf"), publicPem);
+        fs.writeFileSync(modules.config.public_key_path, publicPem);
       });
       crypt
         .encryptPrivateKey(
@@ -39,7 +36,7 @@ export function setup(password_hash: string) {
         .then((encryptedPrivateKey: string) => {
           //note .lxcf = LxCrypt File
           fs.writeFileSync(
-            path.join(app_folder, "private_key.lxcf"),
+            modules.config.private_key_path,
             encryptedPrivateKey
           );
           spinner.succeed(chalk.green.bold("Initialization successful\n"));

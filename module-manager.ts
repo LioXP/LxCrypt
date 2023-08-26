@@ -6,3 +6,4 @@ export * as auth from "./modules/auth.ts";
 export * as hash from "./modules/hash.ts";
 export * as homepage from "./modules/homepage.ts";
 export * as hashfile from "./modules/hashfile.ts";
+export * as config from "./modules/config.ts";

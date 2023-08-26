@@ -3,8 +3,6 @@ import prompts from "npm:prompts";
 import chalk from "npm:chalk";
 import process from "node:process";
 import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
 import OpenCrypto from "npm:deno-opencrypto";
 
 export async function setup() {
@@ -48,17 +46,13 @@ export async function login() {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
-  const app_folder = path.join(os.homedir(), "LxCrypt");
-
   const password = await prompts({
     type: "password",
     name: "input",
     message: "Please enter your password",
   });
 
-  const private_key_file = fs.readFileSync(
-    path.join(app_folder, "private_key.lxcf")
-  );
+  const private_key_file = fs.readFileSync(modules.config.private_key_path);
 
   crypt
     .decryptPrivateKey(
