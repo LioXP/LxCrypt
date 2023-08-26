@@ -1,15 +1,36 @@
-//TODO HASH PRIVATE AND PUBLIC CERT
-//TODO STORE IN JSON DATABASE
-
 import * as modules from "../module-manager.ts";
 import fs from "node:fs";
-import path from "node:path";
 
 export function create() {
-  const private_key_file = fs.readFileSync(
-    path.join(modules.config.app_folder, "private_key.lxcf")
+  const private_key_file = fs.readFileSync(modules.config.private_key_path);
+  const private_key_hash = modules.hash.create(private_key_file.toString());
+
+  const public_key_file = fs.readFileSync(modules.config.public_key_path);
+  const public_key_hash = modules.hash.create(public_key_file.toString());
+
+  const data = {
+    private_key_hash: private_key_hash,
+    public_key_hash: public_key_hash,
+  };
+
+  fs.writeFileSync(modules.config.hashfile_path, JSON.stringify(data));
+}
+export function check() {
+  const private_key_file = fs.readFileSync(modules.config.private_key_path);
+  const private_key_hash = modules.hash.create(private_key_file.toString());
+
+  const public_key_file = fs.readFileSync(modules.config.public_key_path);
+  const public_key_hash = modules.hash.create(public_key_file.toString());
+
+  const hashfile = JSON.parse(
+    fs.readFileSync(modules.config.hashfile_path).toString()
   );
 
-  const hash = modules.hash.create(private_key_file.toString());
+  if (
+    private_key_hash !== hashfile.private_key_hash ||
+    public_key_hash !== hashfile.public_key_hash
+  ) {
+    console.log("Hash failed!");
+    Deno.exit(1);
+  }
 }
-export function check() {}

@@ -39,6 +39,7 @@ export function setup(password_hash: string) {
             modules.config.private_key_path,
             encryptedPrivateKey
           );
+          modules.hashfile.create();
           spinner.succeed(chalk.green.bold("Initialization successful\n"));
           console.log(
             chalk.blue.bold(

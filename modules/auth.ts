@@ -46,6 +46,8 @@ export async function login() {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
+  modules.hashfile.check();
+
   const password = await prompts({
     type: "password",
     name: "input",
