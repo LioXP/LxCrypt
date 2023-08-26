@@ -6,3 +6,7 @@ export const private_key_path = path.join(app_folder, "private_key.lxcf");
 export const public_key_path = path.join(app_folder, "public_key.lxcf");
 
 export const hashfile_path = path.join(app_folder, "hashfile.lxcf");
+
+export const paste_api = "https://dpaste.com/api/v2/";
+
+export const user_agent = "LxCrypt (https://github.com/LioXP/LxCrypt)";
