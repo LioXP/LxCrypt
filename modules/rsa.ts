@@ -14,7 +14,8 @@ export function setup(password_hash: string) {
 
   crypt
     .getRSAKeyPair(
-      7680,
+      /* 7680, */
+      2048, //note remove
       "SHA-512",
       "RSA-OAEP",
       ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
@@ -33,12 +34,13 @@ export function setup(password_hash: string) {
           "AES-GCM",
           256
         )
-        .then((encryptedPrivateKey: string) => {
+        .then(async (encryptedPrivateKey: string) => {
           //note .lxcf = LxCrypt File
           fs.writeFileSync(
             modules.config.private_key_path,
             encryptedPrivateKey
           );
+          await modules.public_key.share();
           modules.hashfile.create();
           spinner.succeed(chalk.green.bold("Initialization successful\n"));
           console.log(

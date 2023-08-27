@@ -1,6 +1,11 @@
 import * as modules from "../module-manager.ts";
+import fs from "node:fs";
 
-export async function share(publicPem: string) {
+export async function share() {
+  const public_key_file = fs.readFileSync(modules.config.public_key_path);
+  await setup_share(public_key_file.toString());
+}
+async function setup_share(publicPem: string) {
   /* const body = `content=${publicPem}&expiry_days=365`; */
   const body = `content=${publicPem}&expiry_days=1`; //note change expiry_days
   const req = await fetch(modules.config.paste_api, {
@@ -12,15 +17,18 @@ export async function share(publicPem: string) {
     body,
   });
   if (req.status === 201) {
-    const key = (await req.text()).replace(modules.config.paste_prefix, "");
+    const key = (await req.text())
+      .replace(modules.config.paste_prefix, "")
+      .replace(/\s/g, "");
     const web_key = await fetch(
       modules.config.paste_prefix + key + modules.config.raw_paste_suffix
     );
     const web_key_raw = await web_key.text();
-    const hash = modules.hash.create(web_key_raw);
-    const key_id = key + "|" + hash;
-    console.log(key_id);
+    const hash = modules.hash.create(web_key_raw.replace(/\s/g, ""));
+    const id = key + "|" + hash;
+    fs.writeFileSync(modules.config.public_id_path, id);
   } else {
     console.log("Error!");
+    Deno.exit(1);
   }
 }
