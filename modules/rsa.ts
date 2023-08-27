@@ -23,7 +23,6 @@ export function setup(password_hash: string) {
     .then((keyPair: CryptoKeyPair) => {
       crypt.cryptoPublicToPem(keyPair.publicKey).then((publicPem: string) => {
         fs.writeFileSync(modules.config.public_key_path, publicPem);
-        //! modules.public_key.share(publicPem);
       });
       crypt
         .encryptPrivateKey(

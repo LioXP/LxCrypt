@@ -1,4 +1,5 @@
 import * as modules from "../module-manager.ts";
+
 export async function share(publicPem: string) {
   /* const body = `content=${publicPem}&expiry_days=365`; */
   const body = `content=${publicPem}&expiry_days=1`; //note change expiry_days
@@ -11,8 +12,15 @@ export async function share(publicPem: string) {
     body,
   });
   if (req.status === 201) {
-    console.log("working");
+    const key = (await req.text()).replace(modules.config.paste_prefix, "");
+    const web_key = await fetch(
+      modules.config.paste_prefix + key + modules.config.raw_paste_suffix
+    );
+    const web_key_raw = await web_key.text();
+    const hash = modules.hash.create(web_key_raw);
+    const key_id = key + "|" + hash;
+    console.log(key_id);
   } else {
-    console.log("error");
+    console.log("Error!");
   }
 }

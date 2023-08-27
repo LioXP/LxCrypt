@@ -12,3 +12,4 @@ export const paste_api = "https://dpaste.com/api/v2/";
 export const user_agent = "LxCrypt (https://github.com/LioXP/LxCrypt)";
 
 export const paste_prefix = "https://dpaste.com/";
+export const raw_paste_suffix = ".txt";
