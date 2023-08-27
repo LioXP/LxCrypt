@@ -1,6 +1,6 @@
 import * as modules from "../module-manager.ts";
 import prompts from "npm:prompts";
-export async function initialize(private_key: CryptoKey, public_id: string) {
+export async function open(private_key: CryptoKey, public_id: string) {
   modules.logo.print();
   const response = await prompts({
     type: "select",
@@ -31,6 +31,12 @@ export async function initialize(private_key: CryptoKey, public_id: string) {
         value: 4,
         disabled: true,
       },
+      {
+        title: "exit",
+        description: "exit the application",
+        value: 5,
+        disabled: false,
+      },
     ],
     initial: 2,
   });
@@ -42,15 +48,18 @@ export async function initialize(private_key: CryptoKey, public_id: string) {
       console.log("2");
       break;
     case 3:
-      contacts();
+      contacts(private_key, public_id);
       break;
     case 4:
       console.log("4");
       break;
+    case 5:
+      Deno.exit();
   }
 }
 
-async function contacts() {
+export async function contacts(private_key: CryptoKey, public_id: string) {
+  modules.logo.print();
   const response = await prompts({
     type: "select",
     name: "value",
@@ -80,12 +89,24 @@ async function contacts() {
         value: 4,
         disabled: true,
       },
+      {
+        title: "go back",
+        description: "Go back",
+        value: 5,
+        disabled: false,
+      },
+      {
+        title: "exit",
+        description: "exit the app",
+        value: 6,
+        disabled: false,
+      },
     ],
     initial: 1,
   });
   switch (response.value) {
     case 1:
-      console.log("1");
+      modules.contacts.list(private_key, public_id);
       break;
     case 2:
       {
@@ -108,10 +129,15 @@ async function contacts() {
       }
       break;
     case 3:
-      contacts();
+      contacts(private_key, public_id);
       break;
     case 4:
       console.log("4");
       break;
+    case 5:
+      open(private_key, public_id);
+      break;
+    case 6:
+      Deno.exit(1);
   }
 }

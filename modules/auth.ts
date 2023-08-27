@@ -69,6 +69,6 @@ export async function login() {
     )
     .then((private_key: CryptoKey) => {
       const public_id = fs.readFileSync(modules.config.public_id_path);
-      modules.homepage.initialize(private_key, public_id.toString());
+      modules.homepage.open(private_key, public_id.toString());
     });
 }
