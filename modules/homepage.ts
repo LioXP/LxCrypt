@@ -60,7 +60,7 @@ async function contacts() {
         title: "list",
         description: "list all contacts",
         value: 1,
-        disabled: true,
+        disabled: false,
       },
       {
         title: "add",
@@ -104,6 +104,7 @@ async function contacts() {
         const response = await prompts(questions);
         const data = response.public_id.split("|");
         modules.contacts.add(response.name, data[0], data[1]);
+        //TODO add feedback or open list window
       }
       break;
     case 3:
