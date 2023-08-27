@@ -2,6 +2,7 @@ import * as modules from "../module-manager.ts";
 import { Low } from "npm:lowdb";
 import { JSONFile } from "npm:lowdb/node";
 import prompts from "npm:prompts";
+import { Table } from "npm:console-table-printer";
 
 export async function initialize() {
   const adapter = new JSONFile(modules.config.contact_db_path);
@@ -32,6 +33,7 @@ export async function add(name: string, public_id: string, cert_hash: string) {
 }
 
 export async function list(private_key: CryptoKey, public_id: string) {
+  modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
   const db = new Low(adapter, defaultData);
@@ -39,9 +41,19 @@ export async function list(private_key: CryptoKey, public_id: string) {
   // deno-lint-ignore no-explicit-any
   const db_data: any = db.data;
 
-  const names = Object.values(db_data.contacts);
-  console.log(names);
+  /*   // deno-lint-ignore no-explicit-any
+  const names = db_data.contacts.map((contacts: any) => contacts.name); */
 
+  //! CONTINUE CODING
+  const table = new Table();
+
+  db_data.contacts.forEach((id: number, name: string) => {
+    console.log(id);
+    console.log(name);
+    table.addRow({ id: id, name: name });
+  });
+  table.printTable();
+  //! CONTINUE CODING
   const response = await prompts({
     type: "select",
     name: "value",
