@@ -11,4 +11,5 @@ export function print() {
       whitespaceBreak: true,
     })
   );
+  console.log("\n");
 }
