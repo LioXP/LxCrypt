@@ -32,3 +32,16 @@ async function setup_share(publicPem: string) {
     Deno.exit(1);
   }
 }
+
+export async function check(public_id: string, cert_hash: string) {
+  const web_key = await fetch(
+    modules.config.paste_prefix + public_id + modules.config.raw_paste_suffix
+  );
+  const web_key_raw = await web_key.text();
+  const hash = modules.hash.create(web_key_raw.replace(/\s/g, ""));
+
+  if (hash !== cert_hash) {
+    console.log("Error!");
+    Deno.exit(1);
+  }
+}

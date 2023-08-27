@@ -1,6 +1,7 @@
 import * as modules from "../module-manager.ts";
 import { Low } from "npm:lowdb";
 import { JSONFile } from "npm:lowdb/node";
+
 export async function initialize() {
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = { contacts: [{ id: 0, name: "You" }] };
@@ -11,6 +12,8 @@ export async function initialize() {
 }
 
 export async function add(name: string, public_id: string, cert_hash: string) {
+  await modules.public_key.check(public_id, cert_hash);
+
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
   const db = new Low(adapter, defaultData);
