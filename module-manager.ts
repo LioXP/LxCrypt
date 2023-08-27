@@ -8,3 +8,4 @@ export * as hash from "./modules/hash.ts";
 export * as homepage from "./modules/homepage.ts";
 export * as hashfile from "./modules/hashfile.ts";
 export * as public_key from "./modules/public_key.ts";
+export * as contacts from "./modules/contacts.ts";

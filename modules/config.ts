@@ -9,6 +9,8 @@ export const public_id_path = path.join(app_folder, "public_id.lxcf");
 
 export const hashfile_path = path.join(app_folder, "hashfile.lxcf");
 
+export const contact_db_path = path.join(app_folder, "contacts.lxcf");
+
 export const paste_api = "https://dpaste.com/api/v2/";
 
 export const user_agent = "LxCrypt (https://github.com/LioXP/LxCrypt)";
