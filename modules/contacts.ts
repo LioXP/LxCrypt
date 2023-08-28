@@ -41,19 +41,20 @@ export async function list(private_key: CryptoKey, public_id: string) {
   // deno-lint-ignore no-explicit-any
   const db_data: any = db.data;
 
-  /*   // deno-lint-ignore no-explicit-any
-  const names = db_data.contacts.map((contacts: any) => contacts.name); */
-
-  //! CONTINUE CODING
-  const table = new Table();
-
-  db_data.contacts.forEach((id: number, name: string) => {
-    console.log(id);
-    console.log(name);
-    table.addRow({ id: id, name: name });
+  const t = new Table({
+    title: "Contacts",
+    columns: [
+      { name: "id", alignment: "left" },
+      { name: "name", alignment: "left" },
+    ],
   });
-  table.printTable();
-  //! CONTINUE CODING
+
+  for (let i = 0; i < db_data.contacts.length; i++) {
+    const obj = db_data.contacts[i];
+    t.addRow({ id: i, name: obj.name });
+  }
+
+  t.printTable();
   const response = await prompts({
     type: "select",
     name: "value",
