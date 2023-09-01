@@ -77,3 +77,58 @@ export async function list(private_key: CryptoKey, public_id: string) {
     modules.homepage.contacts(private_key, public_id);
   } else Deno.exit(1);
 }
+
+export async function remove(private_key: CryptoKey, public_id: string) {
+  modules.logo.print();
+  const adapter = new JSONFile(modules.config.contact_db_path);
+  const defaultData = "";
+  const db = new Low(adapter, defaultData);
+  await db.read();
+  // deno-lint-ignore no-explicit-any
+  const db_data: any = db.data;
+
+  if (db_data.contacts.length === 1) {
+    Deno.exit(1);
+  }
+  const t = new Table({
+    title: "Contacts",
+    columns: [
+      { name: "id", alignment: "left" },
+      { name: "name", alignment: "left" },
+    ],
+  });
+
+  for (let i = 1; i < db_data.contacts.length; i++) {
+    const obj = db_data.contacts[i];
+    t.addRow({ id: i, name: obj.name });
+  }
+
+  t.printTable();
+  const response = await prompts({
+    type: "number",
+    name: "value",
+    message:
+      'Please choose what contact you want to delete. To go back type "0"',
+    style: "default",
+    min: 1,
+    max: db_data.contacts.length - 1,
+  });
+
+  if (response.value !== 0) {
+    const name = db_data.contacts[response.value].name;
+    const confirm = await prompts({
+      type: "confirm",
+      name: "value",
+      message:
+        'Are you sure you want to delete the contact called "' + name + '"',
+      initial: false,
+    });
+    if (confirm.value === true) {
+      //! remove contact
+    } else {
+      modules.homepage.contacts(private_key, public_id);
+    }
+  } else {
+    modules.homepage.contacts(private_key, public_id);
+  }
+}
