@@ -124,7 +124,8 @@ export async function remove(private_key: CryptoKey, public_id: string) {
       initial: false,
     });
     if (confirm.value === true) {
-      //! remove contact
+      db_data.contacts.splice(response.value, 1);
+      await db.write();
     } else {
       modules.homepage.contacts(private_key, public_id);
     }
