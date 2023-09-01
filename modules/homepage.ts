@@ -87,7 +87,7 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
         title: "share",
         description: "share a contact",
         value: 4,
-        disabled: true,
+        disabled: false,
       },
       {
         title: "go back",
@@ -132,7 +132,7 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
       modules.contacts.remove(private_key, public_id);
       break;
     case 4:
-      console.log("4");
+      modules.contacts.share(private_key, public_id);
       break;
     case 5:
       open(private_key, public_id);
