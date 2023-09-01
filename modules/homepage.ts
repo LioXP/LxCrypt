@@ -81,7 +81,7 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
         title: "remove",
         description: "remove a contact",
         value: 3,
-        disabled: true,
+        disabled: false,
       },
       {
         title: "share",
@@ -129,7 +129,7 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
       }
       break;
     case 3:
-      contacts(private_key, public_id);
+      modules.contacts.remove(private_key, public_id);
       break;
     case 4:
       console.log("4");
