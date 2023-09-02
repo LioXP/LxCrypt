@@ -42,5 +42,5 @@ export async function check(public_id: string, cert_hash: string) {
   if (hash !== cert_hash) {
     console.log("Error!");
     Deno.exit(1);
-  }
+  } else return web_key_raw;
 }

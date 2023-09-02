@@ -51,3 +51,25 @@ export function setup(password_hash: string) {
         });
     });
 }
+
+export function encrypt(public_key_pem: string, data: string) {
+  //! NOT WORKING YET
+  //TODO CONTINUE
+  //BUG cant decode public key
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  crypt
+    .pemPublicToCrypto(public_key_pem, {
+      name: "RSA-OAEP",
+      hash: "SHA-512",
+      usages: ["encrypt", "wrapKey"],
+      isExtractable: false,
+    })
+    .then((public_key: CryptoKey) => {
+      const input = crypt.stringToArrayBuffer(data);
+      console.log(public_key);
+      crypt.rsaEncrypt(public_key, input).then((encryptedData: string) => {
+        console.log(encryptedData);
+      });
+    });
+}
