@@ -79,10 +79,15 @@ export async function encrypt(
 export function decrypt(private_key: CryptoKey, encrypted_data: string) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+
+  const data = encrypted_data.split("|");
+  //Note data[0] is the key
+  //Note data[1] is the Message
+
   crypt
-    .rsaDecrypt(private_key, encrypted_data)
-    .then((decrypted_data: ArrayBufferLike) => {
-      const data = crypt.arrayBufferToString(decrypted_data);
-      console.log(data);
+    .rsaDecrypt(private_key, data[0])
+    .then((decrypted_key_buffer: ArrayBufferLike) => {
+      const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
+      modules.aes.decrypt(decrypted_key, data[1]);
     });
 }

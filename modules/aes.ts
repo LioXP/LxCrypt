@@ -30,5 +30,31 @@ export function encrypt_continue(
   encrypted_key: string
 ) {
   const message = encrypted_key + "|" + encrypted_data_aes;
-  console.log(message);
+  console.log("\n\n\n" + message);
+}
+
+export function decrypt(aes_key: string, encrypted_data: string) {
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  crypt
+    .base64ToCrypto(aes_key, {
+      name: "AES-GCM",
+      length: 256,
+      usages: ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
+      isExtractable: false,
+    })
+    .then((aes_CryptoKey: CryptoKey) => {
+      decrypt_continue(aes_CryptoKey, encrypted_data);
+    });
+}
+
+function decrypt_continue(aes_CryptoKey: CryptoKey, encrypted_data: string) {
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  crypt
+    .decrypt(aes_CryptoKey, encrypted_data, { cipher: "AES-GCM" })
+    .then((decrypted_data_buffer: ArrayBufferLike) => {
+      const decrypted_data = crypt.arrayBufferToString(decrypted_data_buffer);
+      console.log("\n\n\n" + decrypted_data);
+    });
 }
