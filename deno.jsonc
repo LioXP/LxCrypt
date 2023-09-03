@@ -1,6 +1,7 @@
 {
   "tasks": {
     "start": "deno run -A main.ts",
-    "update": "rm -rf deno.lock && rm -rf /home/lionel/.cache/deno && deno cache --reload main.ts"
+    "update": "rm -rf deno.lock && rm -rf /home/lionel/.cache/deno && deno cache --reload main.ts",
+    "build": "deno compile main.ts --reload -A --output dist/LxCrypt.exe --target x86_64-pc-windows-msvc"
   }
 }
