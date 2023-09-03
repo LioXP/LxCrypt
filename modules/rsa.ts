@@ -3,6 +3,7 @@ import OpenCrypto from "npm:deno-opencrypto";
 import fs from "node:fs";
 import ora from "npm:ora";
 import chalk from "npm:chalk";
+import pressAnyKey from "npm:press-any-key";
 
 export function setup(password_hash: string) {
   // deno-lint-ignore no-explicit-any
@@ -46,7 +47,10 @@ export function setup(password_hash: string) {
               "\nThe Setup is complete. Please reopen the Application now.\n\n"
             )
           );
-          Deno.exit(0);
+
+          await pressAnyKey("Press any key to exit...").then(() => {
+            Deno.exit(1);
+          });
         });
     });
 }

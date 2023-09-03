@@ -5,6 +5,11 @@ import prompts from "npm:prompts";
 import { Table } from "npm:console-table-printer";
 import fs from "node:fs";
 
+const onCancel = () => {
+  console.clear();
+  Deno.exit(1);
+};
+
 export async function initialize() {
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = { contacts: [{ name: "You" }] };
@@ -56,24 +61,27 @@ export async function list(private_key: CryptoKey, public_id: string) {
   }
 
   t.printTable();
-  const response = await prompts({
-    type: "select",
-    name: "value",
-    message: "What do you want to do now?",
-    choices: [
-      {
-        title: "Go back",
-        description: "Go back",
-        value: 1,
-      },
-      {
-        title: "exit",
-        description: "exit the application",
-        value: 2,
-      },
-    ],
-    initial: 1,
-  });
+  const response = await prompts(
+    {
+      type: "select",
+      name: "value",
+      message: "What do you want to do now?",
+      choices: [
+        {
+          title: "Go back",
+          description: "Go back",
+          value: 1,
+        },
+        {
+          title: "exit",
+          description: "exit the application",
+          value: 2,
+        },
+      ],
+      initial: 1,
+    },
+    { onCancel }
+  );
   if (response.value === 1) {
     modules.homepage.contacts(private_key, public_id);
   } else Deno.exit(1);
@@ -105,23 +113,29 @@ export async function remove(private_key: CryptoKey, public_id: string) {
   }
 
   t.printTable();
-  const response = await prompts({
-    type: "text",
-    name: "value",
-    message:
-      'Please choose what contact you want to delete. To go back type "x"',
-  });
-
-  if (response.value !== "x") {
-    const confirm = await prompts({
-      type: "confirm",
+  const response = await prompts(
+    {
+      type: "text",
       name: "value",
       message:
-        'Are you sure you want to delete the contact called "' +
-        db_data.contacts[response.value].name +
-        '"',
-      initial: false,
-    });
+        'Please choose what contact you want to delete. To go back type "x"',
+    },
+    { onCancel }
+  );
+
+  if (response.value !== "x") {
+    const confirm = await prompts(
+      {
+        type: "confirm",
+        name: "value",
+        message:
+          'Are you sure you want to delete the contact called "' +
+          db_data.contacts[response.value].name +
+          '"',
+        initial: false,
+      },
+      { onCancel }
+    );
     if (confirm.value === true) {
       db_data.contacts.splice(response.value, 1);
       await db.write();
@@ -156,12 +170,15 @@ export async function share(private_key: CryptoKey, public_id: string) {
   }
 
   t.printTable();
-  const response = await prompts({
-    type: "text",
-    name: "value",
-    message:
-      'Please choose what contact you want to share. To go back type "x"',
-  });
+  const response = await prompts(
+    {
+      type: "text",
+      name: "value",
+      message:
+        'Please choose what contact you want to share. To go back type "x"',
+    },
+    { onCancel }
+  );
   if (response.value === "x") {
     modules.homepage.contacts(private_key, public_id);
   } else if (response.value === "0") {
