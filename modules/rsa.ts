@@ -14,9 +14,9 @@ export function setup(password_hash: string) {
 
   crypt
     .getRSAKeyPair(
-      7680,
-      "SHA-512",
-      "RSA-OAEP",
+      modules.config.rsa_key_size,
+      modules.config.rsa_key_hash,
+      modules.config.rsa_key_format,
       ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
       true
     )
@@ -29,9 +29,9 @@ export function setup(password_hash: string) {
           keyPair.privateKey,
           password_hash,
           64000,
-          "SHA-512",
-          "AES-GCM",
-          256
+          modules.config.rsa_key_hash,
+          modules.config.private_key_aes_type,
+          modules.config.private_key_aes_length
         )
         .then(async (encryptedPrivateKey: string) => {
           //note .lxcf = LxCrypt File
@@ -53,23 +53,19 @@ export function setup(password_hash: string) {
 }
 
 export function encrypt(public_key_pem: string, data: string) {
-  //! NOT WORKING YET
-  //TODO CONTINUE
-  //BUG cant decode public key
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
   crypt
     .pemPublicToCrypto(public_key_pem, {
-      name: "RSA-OAEP",
-      hash: "SHA-512",
+      name: modules.config.rsa_key_format,
+      hash: modules.config.rsa_key_hash,
       usages: ["encrypt", "wrapKey"],
       isExtractable: false,
     })
     .then((public_key: CryptoKey) => {
       const input = crypt.stringToArrayBuffer(data);
-      console.log(public_key);
-      crypt.rsaEncrypt(public_key, input).then((encryptedData: string) => {
-        console.log(encryptedData);
+      crypt.rsaEncrypt(public_key, input).then((encrypted_data: string) => {
+        console.log(encrypted_data);
       });
     });
 }

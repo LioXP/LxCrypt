@@ -2,6 +2,15 @@ import os from "node:os";
 import path from "node:path";
 
 export const app_folder = path.join(os.homedir(), "LxCrypt");
+
+export const rsa_key_size = 4096;
+export const rsa_key_hash = "SHA-512";
+
+export const rsa_key_format = "RSA-OAEP";
+
+export const private_key_aes_type = "AES-GCM";
+
+export const private_key_aes_length = 256;
 export const private_key_path = path.join(app_folder, "private_key.lxcf");
 export const public_key_path = path.join(app_folder, "public_key.lxcf");
 
