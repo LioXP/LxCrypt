@@ -6,7 +6,8 @@ export async function share() {
   await setup_share(public_key_file.toString());
 }
 async function setup_share(publicPem: string) {
-  const body = `content=${publicPem}&expiry_days=365`;
+  const public_key = encodeURIComponent(publicPem);
+  const body = `content=${public_key}&expiry_days=365`;
   const req = await fetch(modules.config.paste_api, {
     method: "POST",
     headers: {

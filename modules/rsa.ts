@@ -59,7 +59,7 @@ export function encrypt(public_key_pem: string, data: string) {
     .pemPublicToCrypto(public_key_pem, {
       name: modules.config.rsa_key_format,
       hash: modules.config.rsa_key_hash,
-      usages: ["encrypt", "wrapKey"],
+      usages: ["encrypt"],
       isExtractable: false,
     })
     .then((public_key: CryptoKey) => {
