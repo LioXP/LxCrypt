@@ -69,3 +69,13 @@ export function encrypt(public_key_pem: string, data: string) {
       });
     });
 }
+
+export function decrypt(private_key: CryptoKey, encrypted_data: string) {
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  crypt
+    .rsaDecrypt(private_key, encrypted_data)
+    .then((decrypted_data: ArrayBufferLike) => {
+      const data = crypt.arrayBufferToString(decrypted_data);
+      console.log(data);
+    });
+}

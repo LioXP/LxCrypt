@@ -17,7 +17,7 @@ export async function open(private_key: CryptoKey, public_id: string) {
         title: "decrypt",
         description: "decrypt text",
         value: 2,
-        disabled: true,
+        disabled: false,
       },
       {
         title: "contacts",
@@ -45,7 +45,7 @@ export async function open(private_key: CryptoKey, public_id: string) {
       modules.encrypt.start(private_key, public_id);
       break;
     case 2:
-      console.log("2");
+      modules.decrypt.start(private_key, public_id);
       break;
     case 3:
       contacts(private_key, public_id);
