@@ -34,7 +34,6 @@ export function setup(password_hash: string) {
           modules.config.private_key_aes_length
         )
         .then(async (encryptedPrivateKey: string) => {
-          //note .lxcf = LxCrypt File
           fs.writeFileSync(
             modules.config.private_key_path,
             encryptedPrivateKey
@@ -81,8 +80,6 @@ export function decrypt(private_key: CryptoKey, encrypted_data: string) {
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
   const data = encrypted_data.split("|");
-  //Note data[0] is the key
-  //Note data[1] is the Message
 
   crypt
     .rsaDecrypt(private_key, data[0])

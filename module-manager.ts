@@ -12,4 +12,3 @@ export * as contacts from "./modules/contacts.ts";
 export * as encrypt from "./modules/encrypt.ts";
 export * as decrypt from "./modules/decrypt.ts";
 export * as aes from "./modules/aes.ts";
-export * as exit_on_keypress from "./modules/exit_on_keypress.ts";

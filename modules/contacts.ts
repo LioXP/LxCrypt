@@ -168,6 +168,12 @@ export async function share(private_key: CryptoKey, public_id: string) {
     const public_id = fs.readFileSync(modules.config.public_id_path).toString();
     console.log(public_id);
   } else {
-    //TODO fetch the user from the JSON database, and print out the data merged
+    console.log(
+      db_data.contacts[response.value].name +
+        "'s public-id: " +
+        db_data.contacts[response.value].public_id +
+        "|" +
+        db_data.contacts[response.value].cert_hash
+    );
   }
 }

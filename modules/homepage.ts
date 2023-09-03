@@ -125,7 +125,6 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
         const response = await prompts(questions);
         const data = response.public_id.split("|");
         modules.contacts.add(response.name, data[0], data[1]);
-        //TODO add feedback or open list window
       }
       break;
     case 3:
