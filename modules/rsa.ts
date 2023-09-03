@@ -58,7 +58,9 @@ export function setup(password_hash: string) {
 export async function encrypt(
   public_key_pem: string,
   data: string,
-  encrypted_data_aes: string
+  encrypted_data_aes: string,
+  private_key: CryptoKey,
+  public_id: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -74,21 +76,38 @@ export async function encrypt(
       await crypt
         .rsaEncrypt(public_key, input)
         .then((encrypted_data: string) => {
-          modules.aes.encrypt_continue(encrypted_data_aes, encrypted_data);
+          modules.aes.encrypt_continue(
+            encrypted_data_aes,
+            encrypted_data,
+            private_key,
+            public_id
+          );
         });
     });
 }
 
-export function decrypt(private_key: CryptoKey, encrypted_data: string) {
-  // deno-lint-ignore no-explicit-any
-  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+export async function decrypt(
+  private_key: CryptoKey,
+  encrypted_data: string,
+  public_id: string
+) {
+  try {
+    // deno-lint-ignore no-explicit-any
+    const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
-  const data = encrypted_data.split("|");
+    const data = encrypted_data.split("|");
 
-  crypt
-    .rsaDecrypt(private_key, data[0])
-    .then((decrypted_key_buffer: ArrayBufferLike) => {
-      const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
-      modules.aes.decrypt(decrypted_key, data[1]);
+    crypt
+      .rsaDecrypt(private_key, data[0])
+      .then((decrypted_key_buffer: ArrayBufferLike) => {
+        const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
+        modules.aes.decrypt(decrypted_key, data[1], private_key, public_id);
+      });
+  } catch {
+    modules.logo.print();
+    console.log(chalk.red("The message you provided was invalid!"));
+    await pressAnyKey("Press any key to go back to the menu...").then(() => {
+      modules.homepage.open(private_key, public_id);
     });
+  }
 }

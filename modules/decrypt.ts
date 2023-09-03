@@ -11,12 +11,16 @@ export async function start(private_key: CryptoKey, public_id: string) {
       type: "text",
       name: "value",
       message: "Please enter the encrypted message. To go back enter x",
+      validate: (value: string) =>
+        value.trim().length < 1
+          ? "The encrypted message can't be empty!"
+          : true,
     },
     { onCancel }
   );
   if (response.value === "x") {
     modules.homepage.open(private_key, public_id);
   } else {
-    modules.rsa.decrypt(private_key, response.value);
+    modules.rsa.decrypt(private_key, response.value.trim(), public_id);
   }
 }

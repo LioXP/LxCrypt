@@ -37,7 +37,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
       type: "text",
       name: "value",
       message:
-        'Please choose who you want to send the message to. To go back type "x"',
+        'Please choose who you want to send the message to (use the id). To go back type "x"',
     },
     { onCancel }
   );
@@ -51,23 +51,52 @@ export async function start(private_key: CryptoKey, public_id: string) {
       {
         type: "text",
         name: "value",
-        message: "Please enter your message",
+        message: "Please enter your message. Type x to go back!",
+        validate: (value: string) =>
+          value.trim().length === 0 ? "The message can't be empty!" : true,
       },
       { onCancel }
     );
-    modules.aes.encryption_initialization(public_key, data.value);
+    if (data.value === "x") {
+      modules.homepage.open(private_key, public_id);
+    } else {
+      modules.aes.encryption_initialization(
+        public_key,
+        await data.value,
+        private_key,
+        public_id
+      );
+    }
   } else {
-    const public_id = db_data.contacts[response.value].public_id;
-    const cert_hash = db_data.contacts[response.value].cert_hash;
-    const public_key = await modules.public_key.check(public_id, cert_hash);
-    const data = await prompts(
-      {
-        type: "text",
-        name: "value",
-        message: "Please enter your message",
-      },
-      { onCancel }
-    );
-    modules.aes.encryption_initialization(public_key, data.value);
+    if (
+      response.value > db_data.contacts.length ||
+      response.value < 0 ||
+      isNaN(response.value)
+    ) {
+      start(private_key, public_id);
+    } else {
+      const public_id_db = db_data.contacts[response.value].public_id;
+      const cert_hash = db_data.contacts[response.value].cert_hash;
+      const public_key = await modules.public_key.check(
+        public_id_db,
+        cert_hash
+      );
+      const data = await prompts(
+        {
+          type: "text",
+          name: "value",
+          message: "Please enter your message",
+          validate: (value: string) =>
+            value.trim().length === 0 ? "The message can't be empty!" : true,
+        },
+        { onCancel }
+      );
+      modules.aes.encryption_initialization(
+        public_key,
+        await data.value,
+        private_key,
+        public_id
+      );
+    }
   }
 }
