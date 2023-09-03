@@ -44,7 +44,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
       name: "value",
       message: "Please enter your message",
     });
-    modules.rsa.encrypt(public_key, data.value);
+    modules.aes.encryption_initialization(public_key, data.value);
   } else {
     const public_id = db_data.contacts[response.value].public_id;
     const cert_hash = db_data.contacts[response.value].cert_hash;
@@ -54,6 +54,6 @@ export async function start(private_key: CryptoKey, public_id: string) {
       name: "value",
       message: "Please enter your message",
     });
-    modules.rsa.encrypt(public_key, data.value);
+    modules.aes.encryption_initialization(public_key, data.value);
   }
 }

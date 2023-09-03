@@ -52,21 +52,27 @@ export function setup(password_hash: string) {
     });
 }
 
-export function encrypt(public_key_pem: string, data: string) {
+export async function encrypt(
+  public_key_pem: string,
+  data: string,
+  encrypted_data_aes: string
+) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
-  crypt
+  await crypt
     .pemPublicToCrypto(public_key_pem, {
       name: modules.config.rsa_key_format,
       hash: modules.config.rsa_key_hash,
       usages: ["encrypt"],
       isExtractable: false,
     })
-    .then((public_key: CryptoKey) => {
+    .then(async (public_key: CryptoKey) => {
       const input = crypt.stringToArrayBuffer(data);
-      crypt.rsaEncrypt(public_key, input).then((encrypted_data: string) => {
-        console.log(encrypted_data);
-      });
+      await crypt
+        .rsaEncrypt(public_key, input)
+        .then((encrypted_data: string) => {
+          modules.aes.encrypt_continue(encrypted_data_aes, encrypted_data);
+        });
     });
 }
 
