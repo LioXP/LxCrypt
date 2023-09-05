@@ -19,7 +19,7 @@ export async function setup() {
       message: "Please enter a password",
       validate: (value: string) =>
         value.trim().length < 2
-          ? "The password is too short. Please use at least 4 characters!"
+          ? "The password is too short. Please use at least 2 characters!"
           : true,
     },
     { onCancel }
@@ -32,7 +32,7 @@ export async function setup() {
       message: "Please confirm your password",
       validate: (value: string) =>
         value.trim().length < 2
-          ? "The password is too short. Please use at least 4 characters!"
+          ? "The password is too short. Please use at least 2 characters!"
           : true,
     },
     { onCancel }
@@ -81,7 +81,7 @@ export async function login() {
       message: "Please enter your password",
       validate: (value: string) =>
         value.trim().length < 2
-          ? "The password is too short. The password is at least 4 characters long!"
+          ? "The password is too short. The password is at least 2 characters long!"
           : true,
     },
     { onCancel }

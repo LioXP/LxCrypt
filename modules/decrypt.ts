@@ -13,7 +13,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
       message: "Please enter the encrypted message. To go back enter x",
       validate: (value: string) =>
         value.trim().length < 1
-          ? "The encrypted message can't be empty!"
+          ? "The encrypted message is not valid. This message doesn't fit the length criteria of this software."
           : true,
     },
     { onCancel }

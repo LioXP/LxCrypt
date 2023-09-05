@@ -86,28 +86,27 @@ export async function encrypt(
     });
 }
 
-export async function decrypt(
+export function decrypt(
   private_key: CryptoKey,
   encrypted_data: string,
   public_id: string
 ) {
-  try {
-    // deno-lint-ignore no-explicit-any
-    const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
 
-    const data = encrypted_data.split("|");
+  const data = encrypted_data.split("|");
 
-    crypt
-      .rsaDecrypt(private_key, data[0])
-      .then((decrypted_key_buffer: ArrayBufferLike) => {
-        const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
-        modules.aes.decrypt(decrypted_key, data[1], private_key, public_id);
+  crypt.rsaDecrypt(private_key, data[0]).then(
+    (decrypted_key_buffer: ArrayBufferLike) => {
+      const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
+      modules.aes.decrypt(decrypted_key, data[1], private_key, public_id);
+    },
+    async () => {
+      modules.logo.print();
+      console.log(chalk.red("\nThe message you provided was invalid!\n\n"));
+      await pressAnyKey("Press any key to go back to the menu...").then(() => {
+        modules.homepage.open(private_key, public_id);
       });
-  } catch {
-    modules.logo.print();
-    console.log(chalk.red("The message you provided was invalid!"));
-    await pressAnyKey("Press any key to go back to the menu...").then(() => {
-      modules.homepage.open(private_key, public_id);
-    });
-  }
+    }
+  );
 }
