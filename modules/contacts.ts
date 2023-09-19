@@ -28,29 +28,40 @@ export async function add(
   private_key: CryptoKey,
   ownPublicID: string
 ) {
-  await modules.public_key.check(PublicID, cert_hash, private_key, ownPublicID);
-
-  const adapter = new JSONFile(modules.config.contact_db_path);
-  const defaultData = "";
-  const db = new Low(adapter, defaultData);
-
-  await db.read();
-  // deno-lint-ignore no-explicit-any
-  const db_data: any = db.data;
-
-  db_data.contacts.push({
-    name: name,
-    PublicID: PublicID,
-    cert_hash: cert_hash,
-  });
-  await db.write();
-  modules.logo.print();
-  console.log(
-    chalk.green("\nYou successfully added " + name + " to your contacts!\n\n")
+  const contact_check_response = await modules.public_key.check(
+    PublicID,
+    cert_hash
   );
-  pressAnyKey("Press any key to go back to the menu...").then(() => {
-    modules.homepage.contacts(private_key, PublicID);
-  });
+
+  if (contact_check_response === 1) {
+    modules.logo.print();
+    console.log(chalk.red("The PublicID you provided was invalid!\n\n"));
+    await pressAnyKey("Press any key to go back...").then(() => {
+      modules.homepage.contacts(private_key, ownPublicID);
+    });
+  } else {
+    const adapter = new JSONFile(modules.config.contact_db_path);
+    const defaultData = "";
+    const db = new Low(adapter, defaultData);
+
+    await db.read();
+    // deno-lint-ignore no-explicit-any
+    const db_data: any = db.data;
+
+    db_data.contacts.push({
+      name: name,
+      PublicID: PublicID,
+      cert_hash: cert_hash,
+    });
+    await db.write();
+    modules.logo.print();
+    console.log(
+      chalk.green("\nYou successfully added " + name + " to your contacts!\n\n")
+    );
+    pressAnyKey("Press any key to go back to the menu...").then(() => {
+      modules.homepage.contacts(private_key, PublicID);
+    });
+  }
 }
 
 export async function list(private_key: CryptoKey, PublicID: string) {
@@ -238,12 +249,7 @@ export async function share(private_key: CryptoKey, PublicID: string) {
   }
 }
 
-export async function CheckForDuplicates(
-  name: string,
-  PublicID: string,
-  private_key: CryptoKey,
-  ownPublicID: string
-) {
+export async function CheckForDuplicates(name: string, cert_hash: string) {
   modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -255,26 +261,11 @@ export async function CheckForDuplicates(
   for (let i = 0; i < db_data.contacts.length; i++) {
     const obj = db_data.contacts[i];
     if (name === obj.name) {
-      modules.logo.print();
-      console.log(
-        chalk.red(
-          "You already have a contact with the same name! (" + obj.name + ")\n"
-        )
-      );
-      console.log("" + obj.name + "\n\n");
-      await pressAnyKey("Press any key to go back...").then(() => {
-        modules.homepage.contacts(private_key, ownPublicID);
-      });
+      return 1;
     }
-    if (PublicID === obj.PublicID) {
-      modules.logo.print();
-      console.log(
-        chalk.red("You already have a contact with the same PublicID!\n")
-      );
-      console.log("The contact with the same PublicID is " + obj.name + "\n\n");
-      await pressAnyKey("Press any key to go back...").then(() => {
-        modules.homepage.contacts(private_key, ownPublicID);
-      });
+    if (cert_hash === obj.cert_hash) {
+      return obj.name;
     }
   }
+  return 0;
 }

@@ -1,6 +1,8 @@
 import * as modules from "../module-manager.ts";
 import prompts from "npm:prompts";
 import opn from "npm:open";
+import pressAnyKey from "npm:press-any-key";
+import chalk from "npm:chalk";
 
 const onCancel = () => {
   console.clear();
@@ -155,20 +157,49 @@ export async function contacts(private_key: CryptoKey, PublicID: string) {
           if (response_PublicID.value === "q") {
             contacts(private_key, PublicID);
           } else {
-            modules.contacts.CheckForDuplicates(
-              response_name.value,
-              response_PublicID.value,
-              private_key,
-              PublicID
-            );
             const data = response_PublicID.value.split("|");
-            modules.contacts.add(
-              response_name.value,
-              data[0],
-              data[1],
-              private_key,
-              PublicID
-            );
+            const DuplicatesCheckResponse =
+              await modules.contacts.CheckForDuplicates(
+                response_name.value.trim(),
+                data[1]
+              );
+            if (DuplicatesCheckResponse === 0) {
+              const data = response_PublicID.value.split("|");
+              modules.contacts.add(
+                response_name.value,
+                data[0],
+                data[1],
+                private_key,
+                PublicID
+              );
+            } else if (DuplicatesCheckResponse === 1) {
+              modules.logo.print();
+              console.log(
+                chalk.red(
+                  "You already have a contact with the same name! (" +
+                    response_name.value +
+                    ")\n"
+                )
+              );
+              await pressAnyKey("Press any key to go back...").then(() => {
+                modules.homepage.contacts(private_key, PublicID);
+              });
+            } else {
+              modules.logo.print();
+              console.log(
+                chalk.red(
+                  "You already have a contact with the same PublicID!\n"
+                )
+              );
+              console.log(
+                "The contact with the same PublicID is " +
+                  DuplicatesCheckResponse +
+                  "\n\n"
+              );
+              await pressAnyKey("Press any key to go back...").then(() => {
+                modules.homepage.contacts(private_key, PublicID);
+              });
+            }
           }
         }
       }

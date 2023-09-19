@@ -35,12 +35,7 @@ async function setup_share(publicPem: string) {
   }
 }
 
-export async function check(
-  PublicID: string,
-  cert_hash: string,
-  private_key: CryptoKey,
-  ownPublicID: string
-) {
+export async function check(PublicID: string, cert_hash: string) {
   const web_key = await fetch(
     modules.config.paste_prefix + PublicID + modules.config.raw_paste_suffix
   );
@@ -48,11 +43,6 @@ export async function check(
   const hash = modules.hash.create(web_key_raw.replace(/\s/g, ""));
 
   if (hash !== cert_hash) {
-    modules.logo.print();
-    console.log(chalk.red("The PublicID you provided was invalid!\n\n"));
-    await pressAnyKey("Press any key to go back...").then(() => {
-      modules.homepage.contacts(private_key, ownPublicID);
-    });
-    return "";
+    return 1;
   } else return web_key_raw;
 }
