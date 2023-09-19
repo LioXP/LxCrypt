@@ -131,31 +131,42 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
         name: "value",
         message:
           'Please choose what contact you want to delete. To go back type "q"',
+        validate: (value: string) =>
+          value.trim().length < 1
+            ? 'Please choose a contact or go back. To go back type "q"'
+            : true,
       },
       { onCancel }
     );
-
-    if (response.value !== "q") {
-      const confirm = await prompts(
-        {
-          type: "confirm",
-          name: "value",
-          message:
-            'Are you sure you want to delete the contact called "' +
-            db_data.contacts[response.value].name +
-            '"',
-          initial: false,
-        },
-        { onCancel }
-      );
-      if (confirm.value === true) {
-        db_data.contacts.splice(response.value, 1);
-        await db.write();
-      } else {
-        modules.homepage.contacts(private_key, PublicID);
-      }
-    } else {
+    if (response.value === "q") {
       modules.homepage.contacts(private_key, PublicID);
+    } else {
+      if (
+        response.value > db_data.contacts.length ||
+        response.value < 1 ||
+        isNaN(response.value)
+      ) {
+        remove(private_key, PublicID);
+      } else {
+        const confirm = await prompts(
+          {
+            type: "confirm",
+            name: "value",
+            message:
+              'Are you sure you want to delete the contact called "' +
+              db_data.contacts[response.value.trim()].name +
+              '"',
+            initial: false,
+          },
+          { onCancel }
+        );
+        if (confirm.value === true) {
+          db_data.contacts.splice(response.value.trim(), 1);
+          await db.write();
+        } else {
+          modules.homepage.contacts(private_key, PublicID);
+        }
+      }
     }
   }
 }
