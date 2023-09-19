@@ -1,6 +1,4 @@
 import * as modules from "../module-manager.ts";
-import chalk from "npm:chalk";
-import pressAnyKey from "npm:press-any-key";
 import fs from "node:fs";
 
 export async function share() {

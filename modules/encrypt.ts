@@ -4,6 +4,8 @@ import { JSONFile } from "npm:lowdb/node";
 import prompts from "npm:prompts";
 import { Table } from "npm:console-table-printer";
 import fs from "node:fs";
+import chalk from "npm:chalk";
+import pressAnyKey from "npm:press-any-key";
 
 const onCancel = () => {
   console.clear();
@@ -81,28 +83,35 @@ export async function start(private_key: CryptoKey, PublicID: string) {
     } else {
       const PublicID_db = db_data.contacts[response.value.trim()].PublicID;
       const cert_hash = db_data.contacts[response.value.trim()].cert_hash;
-      const public_key = await modules.public_key.check(
-        PublicID_db,
-        cert_hash,
-        private_key,
-        PublicID
-      );
-      const data = await prompts(
-        {
-          type: "text",
-          name: "value",
-          message: "Please enter your message",
-          validate: (value: string) =>
-            value.trim().length === 0 ? "The message can't be empty!" : true,
-        },
-        { onCancel }
-      );
-      modules.aes.encryption_initialization(
-        public_key,
-        await data.value,
-        private_key,
-        PublicID_db
-      );
+      const public_key = await modules.public_key.check(PublicID_db, cert_hash);
+      if (public_key === 1) {
+        modules.logo.print();
+        console.log(
+          chalk.red(
+            "The PublicID seems to be invalid. Please try again! If this error persists, delete the contact, and add them again!\n\n"
+          )
+        );
+        await pressAnyKey("Press any key to go back...").then(() => {
+          modules.homepage.contacts(private_key, PublicID);
+        });
+      } else {
+        const data = await prompts(
+          {
+            type: "text",
+            name: "value",
+            message: "Please enter your message",
+            validate: (value: string) =>
+              value.trim().length === 0 ? "The message can't be empty!" : true,
+          },
+          { onCancel }
+        );
+        modules.aes.encryption_initialization(
+          public_key,
+          await data.value,
+          private_key,
+          PublicID_db
+        );
+      }
     }
   }
 }
