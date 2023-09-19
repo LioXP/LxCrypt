@@ -2,8 +2,7 @@ import chalk from "npm:chalk";
 import * as modules from "../module-manager.ts";
 import OpenCrypto from "npm:deno-opencrypto";
 import pressAnyKey from "npm:press-any-key";
-import { readKeypress } from "https://deno.land/x/keypress@0.0.11/mod.ts";
-import clipboard from "npm:clipboardy";
+import { private_key_aes_length } from "./config.ts";
 export function encryption_initialization(
   public_key: string,
   data: string,
@@ -46,7 +45,7 @@ function encrypt(
   });
 }
 
-export async function encrypt_continue(
+export function encrypt_continue(
   encrypted_data_aes: string,
   encrypted_key: string,
   private_key: CryptoKey,
@@ -57,18 +56,10 @@ export async function encrypt_continue(
   modules.logo.print();
   console.log(
     chalk.green(
-      "The message was successfully encrypted. You can copy it by selecting, and right clicking in the Terminal\n Press C to copy the encrypted message!"
+      "The message was successfully encrypted. You can copy it by selecting, and right clicking in the Terminal"
     )
   );
   console.log("\n\n" + message + "\n\n");
-
-  for await (const keypress of readKeypress()) {
-    if (keypress.key === "c") {
-      clipboard.writeSync("🦄");
-    }
-  }
-
-  //! WORK ON THIS!
   pressAnyKey("Press any key to go back to the menu...").then(() => {
     modules.homepage.open(private_key, public_id);
   });
@@ -115,13 +106,7 @@ async function decrypt_continue(
       .decrypt(aes_CryptoKey, encrypted_data, { cipher: "AES-GCM" })
       .then((decrypted_data_buffer: ArrayBufferLike) => {
         const decrypted_data = crypt.arrayBufferToString(decrypted_data_buffer);
-
-        modules.logo.print();
-        console.log(chalk.green("The message was successfully decrypted."));
-        console.log("\n\n" + decrypted_data + "\n\n");
-        pressAnyKey("Press any key to go back to the menu...").then(() => {
-          modules.homepage.open(private_key, public_id);
-        });
+        console.log("\n\n\n" + decrypted_data);
       });
   } catch {
     modules.logo.print();
