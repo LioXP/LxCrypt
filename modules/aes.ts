@@ -1,7 +1,7 @@
-import chalk from "npm:chalk";
 import * as modules from "../module-manager.ts";
 import OpenCrypto from "npm:deno-opencrypto";
 import pressAnyKey from "npm:press-any-key";
+import chalk from "npm:chalk";
 export function encryption_initialization(
   public_key: string | undefined,
   data: string,

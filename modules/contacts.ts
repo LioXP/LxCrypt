@@ -4,6 +4,8 @@ import { JSONFile } from "npm:lowdb/node";
 import prompts from "npm:prompts";
 import { Table } from "npm:console-table-printer";
 import fs from "node:fs";
+import chalk from "npm:chalk";
+import pressAnyKey from "npm:press-any-key";
 
 const onCancel = () => {
   console.clear();
@@ -19,8 +21,14 @@ export async function initialize() {
   await db.write();
 }
 
-export async function add(name: string, PublicID: string, cert_hash: string) {
-  await modules.public_key.check(PublicID, cert_hash);
+export async function add(
+  name: string,
+  PublicID: string,
+  cert_hash: string,
+  private_key: CryptoKey,
+  ownPublicID: string
+) {
+  await modules.public_key.check(PublicID, cert_hash, private_key, ownPublicID);
 
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -78,7 +86,7 @@ export async function list(private_key: CryptoKey, PublicID: string) {
           value: 2,
         },
       ],
-      initial: 1,
+      initial: 0,
     },
     { onCancel }
   );
@@ -97,53 +105,59 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
   const db_data: any = db.data;
 
   if (db_data.contacts.length === 1) {
-    Deno.exit(1);
-  }
-  const t = new Table({
-    title: "Contacts",
-    columns: [
-      { name: "id", alignment: "left" },
-      { name: "name", alignment: "left" },
-    ],
-  });
+    modules.logo.print();
+    console.log(chalk.red("You don't have any contacts (to delete)!\n\n"));
+    await pressAnyKey("Press any key to go back...").then(() => {
+      modules.homepage.contacts(private_key, PublicID);
+    });
+  } else {
+    const t = new Table({
+      title: "Contacts",
+      columns: [
+        { name: "id", alignment: "left" },
+        { name: "name", alignment: "left" },
+      ],
+    });
 
-  for (let i = 1; i < db_data.contacts.length; i++) {
-    const obj = db_data.contacts[i];
-    t.addRow({ id: i, name: obj.name });
-  }
+    for (let i = 1; i < db_data.contacts.length; i++) {
+      const obj = db_data.contacts[i];
+      t.addRow({ id: i, name: obj.name });
+    }
 
-  t.printTable();
-  const response = await prompts(
-    {
-      type: "text",
-      name: "value",
-      message:
-        'Please choose what contact you want to delete. To go back type "q"',
-    },
-    { onCancel }
-  );
-
-  if (response.value !== "q") {
-    const confirm = await prompts(
+    t.printTable();
+    const response = await prompts(
       {
-        type: "confirm",
+        type: "text",
         name: "value",
         message:
-          'Are you sure you want to delete the contact called "' +
-          db_data.contacts[response.value].name +
-          '"',
-        initial: false,
+          'Please choose what contact you want to delete. To go back type "q"',
+          
       },
       { onCancel }
     );
-    if (confirm.value === true) {
-      db_data.contacts.splice(response.value, 1);
-      await db.write();
+
+    if (response.value !== "q") {
+      const confirm = await prompts(
+        {
+          type: "confirm",
+          name: "value",
+          message:
+            'Are you sure you want to delete the contact called "' +
+            db_data.contacts[response.value].name +
+            '"',
+          initial: false,
+        },
+        { onCancel }
+      );
+      if (confirm.value === true) {
+        db_data.contacts.splice(response.value, 1);
+        await db.write();
+      } else {
+        modules.homepage.contacts(private_key, PublicID);
+      }
     } else {
       modules.homepage.contacts(private_key, PublicID);
     }
-  } else {
-    modules.homepage.contacts(private_key, PublicID);
   }
 }
 

@@ -156,7 +156,13 @@ export async function contacts(private_key: CryptoKey, PublicID: string) {
             contacts(private_key, PublicID);
           } else {
             const data = response_PublicID.value.split("|");
-            modules.contacts.add(response_name.value, data[0], data[1]);
+            modules.contacts.add(
+              response_name.value,
+              data[0],
+              data[1],
+              private_key,
+              PublicID
+            );
           }
         }
       }
