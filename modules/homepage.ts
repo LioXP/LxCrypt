@@ -12,7 +12,7 @@ export async function open(private_key: CryptoKey, PublicID: string) {
     {
       type: "select",
       name: "value",
-      message: "Choose what window to open",
+      message: "Choose action",
       choices: [
         {
           title: "encrypt",
@@ -75,7 +75,7 @@ export async function contacts(private_key: CryptoKey, PublicID: string) {
     {
       type: "select",
       name: "value",
-      message: "Choose what window to open",
+      message: "Choose action",
       choices: [
         {
           title: "list",
@@ -155,6 +155,12 @@ export async function contacts(private_key: CryptoKey, PublicID: string) {
           if (response_PublicID.value === "q") {
             contacts(private_key, PublicID);
           } else {
+            modules.contacts.CheckForDuplicates(
+              response_name.value,
+              response_PublicID.value,
+              private_key,
+              PublicID
+            );
             const data = response_PublicID.value.split("|");
             modules.contacts.add(
               response_name.value,

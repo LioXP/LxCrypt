@@ -44,6 +44,13 @@ export async function add(
     cert_hash: cert_hash,
   });
   await db.write();
+  modules.logo.print();
+  console.log(
+    chalk.green("\nYou successfully added " + name + " to your contacts!\n\n")
+  );
+  pressAnyKey("Press any key to go back to the menu...").then(() => {
+    modules.homepage.contacts(private_key, PublicID);
+  });
 }
 
 export async function list(private_key: CryptoKey, PublicID: string) {
@@ -142,19 +149,20 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
       modules.homepage.contacts(private_key, PublicID);
     } else {
       if (
-        response.value > db_data.contacts.length ||
+        response.value > db_data.contacts.length - 1 ||
         response.value < 1 ||
         isNaN(response.value)
       ) {
         remove(private_key, PublicID);
       } else {
+        const contact_name = db_data.contacts[response.value.trim()].name;
         const confirm = await prompts(
           {
             type: "confirm",
             name: "value",
             message:
               'Are you sure you want to delete the contact called "' +
-              db_data.contacts[response.value.trim()].name +
+              contact_name +
               '"',
             initial: false,
           },
@@ -163,6 +171,17 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
         if (confirm.value === true) {
           db_data.contacts.splice(response.value.trim(), 1);
           await db.write();
+          modules.logo.print();
+          console.log(
+            chalk.green(
+              "\nYou successfully removed " +
+                contact_name +
+                " from your contacts!\n\n"
+            )
+          );
+          pressAnyKey("Press any key to go back to the menu...").then(() => {
+            modules.homepage.contacts(private_key, PublicID);
+          });
         } else {
           modules.homepage.contacts(private_key, PublicID);
         }
@@ -216,5 +235,46 @@ export async function share(private_key: CryptoKey, PublicID: string) {
         "|" +
         db_data.contacts[response.value].cert_hash
     );
+  }
+}
+
+export async function CheckForDuplicates(
+  name: string,
+  PublicID: string,
+  private_key: CryptoKey,
+  ownPublicID: string
+) {
+  modules.logo.print();
+  const adapter = new JSONFile(modules.config.contact_db_path);
+  const defaultData = "";
+  const db = new Low(adapter, defaultData);
+  await db.read();
+  // deno-lint-ignore no-explicit-any
+  const db_data: any = db.data;
+
+  for (let i = 0; i < db_data.contacts.length; i++) {
+    const obj = db_data.contacts[i];
+    if (name === obj.name) {
+      modules.logo.print();
+      console.log(
+        chalk.red(
+          "You already have a contact with the same name! (" + obj.name + ")\n"
+        )
+      );
+      console.log("" + obj.name + "\n\n");
+      await pressAnyKey("Press any key to go back...").then(() => {
+        modules.homepage.contacts(private_key, ownPublicID);
+      });
+    }
+    if (PublicID === obj.PublicID) {
+      modules.logo.print();
+      console.log(
+        chalk.red("You already have a contact with the same PublicID!\n")
+      );
+      console.log("The contact with the same PublicID is " + obj.name + "\n\n");
+      await pressAnyKey("Press any key to go back...").then(() => {
+        modules.homepage.contacts(private_key, ownPublicID);
+      });
+    }
   }
 }
