@@ -47,9 +47,10 @@ export async function start(private_key: CryptoKey, PublicID: string) {
     },
     { onCancel }
   );
-  if (response.value === "q") {
+  const response_value = response.value.trim().replace(/^0+/, "");
+  if (response_value === "q") {
     modules.homepage.open(private_key, PublicID);
-  } else if (response.value === "0") {
+  } else if (response_value === "") {
     const public_key = fs
       .readFileSync(modules.config.public_key_path)
       .toString();
@@ -75,14 +76,14 @@ export async function start(private_key: CryptoKey, PublicID: string) {
     }
   } else {
     if (
-      response.value > db_data.contacts.length ||
-      response.value < 0 ||
-      isNaN(response.value)
+      response_value > db_data.contacts.length ||
+      response_value < 0 ||
+      isNaN(response_value)
     ) {
       start(private_key, PublicID);
     } else {
-      const PublicID_db = db_data.contacts[response.value.trim()].PublicID;
-      const cert_hash = db_data.contacts[response.value.trim()].cert_hash;
+      const PublicID_db = db_data.contacts[response_value].PublicID;
+      const cert_hash = db_data.contacts[response_value].cert_hash;
       const public_key = await modules.public_key.check(PublicID_db, cert_hash);
       if (public_key === 1) {
         modules.logo.print();
@@ -92,7 +93,7 @@ export async function start(private_key: CryptoKey, PublicID: string) {
           )
         );
         await pressAnyKey("Press any key to go back...").then(() => {
-          modules.homepage.contacts(private_key, PublicID);
+          modules.homepage.open(private_key, PublicID);
         });
       } else {
         const data = await prompts(

@@ -156,17 +156,18 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
       },
       { onCancel }
     );
-    if (response.value === "q") {
+    const response_value = response.value.trim().replace(/^0+/, "");
+    if (response_value === "q") {
       modules.homepage.contacts(private_key, PublicID);
     } else {
       if (
-        response.value > db_data.contacts.length - 1 ||
-        response.value < 1 ||
-        isNaN(response.value)
+        response_value > db_data.contacts.length - 1 ||
+        response_value < 1 ||
+        isNaN(response_value)
       ) {
         remove(private_key, PublicID);
       } else {
-        const contact_name = db_data.contacts[response.value.trim()].name;
+        const contact_name = db_data.contacts[response_value].name;
         const confirm = await prompts(
           {
             type: "confirm",
@@ -230,6 +231,10 @@ export async function share(private_key: CryptoKey, PublicID: string) {
       name: "value",
       message:
         'Please choose what contact you want to share. To go back type "q"',
+      validate: (value: string) =>
+        value.trim().length < 1
+          ? 'Please choose a contact or go back. To go back type "q"'
+          : true,
     },
     { onCancel }
   );
@@ -239,13 +244,21 @@ export async function share(private_key: CryptoKey, PublicID: string) {
     const PublicID = fs.readFileSync(modules.config.PublicID_path).toString();
     console.log(PublicID);
   } else {
-    console.log(
-      db_data.contacts[response.value].name +
-        "'s public-id: " +
-        db_data.contacts[response.value].PublicID +
-        "|" +
-        db_data.contacts[response.value].cert_hash
-    );
+    if (
+      response.value > db_data.contacts.length ||
+      response.value < 0 ||
+      isNaN(response.value)
+    ) {
+      share(private_key, PublicID);
+    } else {
+      console.log(
+        db_data.contacts[response.value.trim()].name +
+          "'s public-id: " +
+          db_data.contacts[response.value.trim()].PublicID +
+          "|" +
+          db_data.contacts[response.value.trim()].cert_hash
+      );
+    }
   }
 }
 
