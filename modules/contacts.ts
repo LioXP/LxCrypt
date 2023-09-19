@@ -19,8 +19,8 @@ export async function initialize() {
   await db.write();
 }
 
-export async function add(name: string, public_id: string, cert_hash: string) {
-  await modules.public_key.check(public_id, cert_hash);
+export async function add(name: string, PublicID: string, cert_hash: string) {
+  await modules.public_key.check(PublicID, cert_hash);
 
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -32,13 +32,13 @@ export async function add(name: string, public_id: string, cert_hash: string) {
 
   db_data.contacts.push({
     name: name,
-    public_id: public_id,
+    PublicID: PublicID,
     cert_hash: cert_hash,
   });
   await db.write();
 }
 
-export async function list(private_key: CryptoKey, public_id: string) {
+export async function list(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -83,11 +83,11 @@ export async function list(private_key: CryptoKey, public_id: string) {
     { onCancel }
   );
   if (response.value === 1) {
-    modules.homepage.contacts(private_key, public_id);
+    modules.homepage.contacts(private_key, PublicID);
   } else Deno.exit(1);
 }
 
-export async function remove(private_key: CryptoKey, public_id: string) {
+export async function remove(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -140,14 +140,14 @@ export async function remove(private_key: CryptoKey, public_id: string) {
       db_data.contacts.splice(response.value, 1);
       await db.write();
     } else {
-      modules.homepage.contacts(private_key, public_id);
+      modules.homepage.contacts(private_key, PublicID);
     }
   } else {
-    modules.homepage.contacts(private_key, public_id);
+    modules.homepage.contacts(private_key, PublicID);
   }
 }
 
-export async function share(private_key: CryptoKey, public_id: string) {
+export async function share(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -180,15 +180,15 @@ export async function share(private_key: CryptoKey, public_id: string) {
     { onCancel }
   );
   if (response.value === "q") {
-    modules.homepage.contacts(private_key, public_id);
+    modules.homepage.contacts(private_key, PublicID);
   } else if (response.value === "0") {
-    const public_id = fs.readFileSync(modules.config.public_id_path).toString();
-    console.log(public_id);
+    const PublicID = fs.readFileSync(modules.config.PublicID_path).toString();
+    console.log(PublicID);
   } else {
     console.log(
       db_data.contacts[response.value].name +
         "'s public-id: " +
-        db_data.contacts[response.value].public_id +
+        db_data.contacts[response.value].PublicID +
         "|" +
         db_data.contacts[response.value].cert_hash
     );

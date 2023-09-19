@@ -100,8 +100,8 @@ export async function login() {
       }
     )
     .then((private_key: CryptoKey) => {
-      const public_id = fs.readFileSync(modules.config.public_id_path);
-      modules.homepage.open(private_key, public_id.toString());
+      const PublicID = fs.readFileSync(modules.config.PublicID_path);
+      modules.homepage.open(private_key, PublicID.toString());
     })
     .catch(async () => {
       modules.logo.print();

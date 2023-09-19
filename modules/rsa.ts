@@ -60,7 +60,7 @@ export async function encrypt(
   data: string,
   encrypted_data_aes: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -80,7 +80,7 @@ export async function encrypt(
             encrypted_data_aes,
             encrypted_data,
             private_key,
-            public_id
+            PublicID
           );
         });
     });
@@ -89,7 +89,7 @@ export async function encrypt(
 export function decrypt(
   private_key: CryptoKey,
   encrypted_data: string,
-  public_id: string
+  PublicID: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -99,13 +99,13 @@ export function decrypt(
   crypt.rsaDecrypt(private_key, data[0]).then(
     (decrypted_key_buffer: ArrayBufferLike) => {
       const decrypted_key = crypt.arrayBufferToString(decrypted_key_buffer);
-      modules.aes.decrypt(decrypted_key, data[1], private_key, public_id);
+      modules.aes.decrypt(decrypted_key, data[1], private_key, PublicID);
     },
     async () => {
       modules.logo.print();
       console.log(chalk.red("The message you provided was invalid!\n\n"));
       await pressAnyKey("Press any key to go back to the menu...").then(() => {
-        modules.homepage.open(private_key, public_id);
+        modules.homepage.open(private_key, PublicID);
       });
     }
   );

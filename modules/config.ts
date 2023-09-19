@@ -14,7 +14,7 @@ export const private_key_aes_length = 256;
 export const private_key_path = path.join(app_folder, "private_key.lxcf");
 export const public_key_path = path.join(app_folder, "public_key.lxcf");
 
-export const public_id_path = path.join(app_folder, "public_id.lxcf");
+export const PublicID_path = path.join(app_folder, "PublicID.lxcf");
 
 export const hashfile_path = path.join(app_folder, "hashfile.lxcf");
 

@@ -9,7 +9,7 @@ const onCancel = () => {
   console.clear();
   Deno.exit(1);
 };
-export async function start(private_key: CryptoKey, public_id: string) {
+export async function start(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const adapter = new JSONFile(modules.config.contact_db_path);
   const defaultData = "";
@@ -46,7 +46,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
     { onCancel }
   );
   if (response.value === "q") {
-    modules.homepage.open(private_key, public_id);
+    modules.homepage.open(private_key, PublicID);
   } else if (response.value === "0") {
     const public_key = fs
       .readFileSync(modules.config.public_key_path)
@@ -62,13 +62,13 @@ export async function start(private_key: CryptoKey, public_id: string) {
       { onCancel }
     );
     if (data.value === "q") {
-      modules.homepage.open(private_key, public_id);
+      modules.homepage.open(private_key, PublicID);
     } else {
       modules.aes.encryption_initialization(
         public_key,
         await data.value,
         private_key,
-        public_id
+        PublicID
       );
     }
   } else {
@@ -77,14 +77,11 @@ export async function start(private_key: CryptoKey, public_id: string) {
       response.value < 0 ||
       isNaN(response.value)
     ) {
-      start(private_key, public_id);
+      start(private_key, PublicID);
     } else {
-      const public_id_db = db_data.contacts[response.value].public_id;
+      const PublicID_db = db_data.contacts[response.value].PublicID;
       const cert_hash = db_data.contacts[response.value].cert_hash;
-      const public_key = await modules.public_key.check(
-        public_id_db,
-        cert_hash
-      );
+      const public_key = await modules.public_key.check(PublicID_db, cert_hash);
       const data = await prompts(
         {
           type: "text",
@@ -99,7 +96,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
         public_key,
         await data.value,
         private_key,
-        public_id
+        PublicID
       );
     }
   }

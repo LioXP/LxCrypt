@@ -6,7 +6,7 @@ const onCancel = () => {
   console.clear();
   Deno.exit(1);
 };
-export async function open(private_key: CryptoKey, public_id: string) {
+export async function open(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const response = await prompts(
     {
@@ -51,17 +51,17 @@ export async function open(private_key: CryptoKey, public_id: string) {
   );
   switch (response.value) {
     case 1:
-      modules.encrypt.start(private_key, public_id);
+      modules.encrypt.start(private_key, PublicID);
       break;
     case 2:
-      modules.decrypt.start(private_key, public_id);
+      modules.decrypt.start(private_key, PublicID);
       break;
     case 3:
-      contacts(private_key, public_id);
+      contacts(private_key, PublicID);
       break;
     case 4:
       await opn("https://github.com/LioXP/LxCrypt");
-      open(private_key, public_id);
+      open(private_key, PublicID);
       break;
     case 5:
       console.clear();
@@ -69,7 +69,7 @@ export async function open(private_key: CryptoKey, public_id: string) {
   }
 }
 
-export async function contacts(private_key: CryptoKey, public_id: string) {
+export async function contacts(private_key: CryptoKey, PublicID: string) {
   modules.logo.print();
   const response = await prompts(
     {
@@ -120,35 +120,55 @@ export async function contacts(private_key: CryptoKey, public_id: string) {
   );
   switch (response.value) {
     case 1:
-      modules.contacts.list(private_key, public_id);
+      modules.contacts.list(private_key, PublicID);
       break;
     case 2:
       {
-        const questions = [
+        const response_name = await prompts(
           {
             type: "text",
-            name: "name",
-            message: "What name should we use for the contact?",
+            name: "value",
+            message:
+              'What name should we use for the contact? To go back type "q"',
+            validate: (value: string) =>
+              value.trim().length < 1
+                ? 'The name can\'t be empty! To go back type "q"'
+                : true,
           },
-          {
-            type: "text",
-            name: "public_id",
-            message: "Please paste the full public id",
-          },
-        ];
-        const response = await prompts(questions);
-        const data = response.public_id.split("|");
-        modules.contacts.add(response.name, data[0], data[1]);
+          { onCancel }
+        );
+        if (response_name.value === "q") {
+          contacts(private_key, PublicID);
+        } else {
+          const response_PublicID = await prompts(
+            {
+              type: "text",
+              name: "value",
+              message: 'Please paste the full PublicID! To go back type "q"',
+              validate: (value: string) =>
+                value.trim().length < 1
+                  ? 'The PublicID can\'t be empty! To go back type "q"'
+                  : true,
+            },
+            { onCancel }
+          );
+          if (response_PublicID.value === "q") {
+            contacts(private_key, PublicID);
+          } else {
+            const data = response_PublicID.value.split("|");
+            modules.contacts.add(response_name.value, data[0], data[1]);
+          }
+        }
       }
       break;
     case 3:
-      modules.contacts.remove(private_key, public_id);
+      modules.contacts.remove(private_key, PublicID);
       break;
     case 4:
-      modules.contacts.share(private_key, public_id);
+      modules.contacts.share(private_key, PublicID);
       break;
     case 5:
-      open(private_key, public_id);
+      open(private_key, PublicID);
       break;
     case 6:
       console.clear();

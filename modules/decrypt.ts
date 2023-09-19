@@ -5,7 +5,7 @@ const onCancel = () => {
   console.clear();
   Deno.exit(1);
 };
-export async function start(private_key: CryptoKey, public_id: string) {
+export async function start(private_key: CryptoKey, PublicID: string) {
   const response = await prompts(
     {
       type: "text",
@@ -19,8 +19,8 @@ export async function start(private_key: CryptoKey, public_id: string) {
     { onCancel }
   );
   if (response.value === "q") {
-    modules.homepage.open(private_key, public_id);
+    modules.homepage.open(private_key, PublicID);
   } else {
-    modules.rsa.decrypt(private_key, response.value.trim(), public_id);
+    modules.rsa.decrypt(private_key, response.value.trim(), PublicID);
   }
 }

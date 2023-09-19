@@ -6,7 +6,7 @@ export function encryption_initialization(
   public_key: string,
   data: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -17,7 +17,7 @@ export function encryption_initialization(
       isExtractable: true,
     })
     .then((aes_key: CryptoKey) => {
-      encrypt(aes_key, data, public_key, private_key, public_id);
+      encrypt(aes_key, data, public_key, private_key, PublicID);
     });
 }
 
@@ -26,7 +26,7 @@ function encrypt(
   data: string,
   public_key: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -38,7 +38,7 @@ function encrypt(
         base64Key,
         encrypted_data,
         private_key,
-        public_id
+        PublicID
       );
     });
   });
@@ -48,7 +48,7 @@ export function encrypt_continue(
   encrypted_data_aes: string,
   encrypted_key: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   const message = encrypted_key + "|" + encrypted_data_aes;
 
@@ -60,7 +60,7 @@ export function encrypt_continue(
   );
   console.log("\n\n" + message + "\n\n");
   pressAnyKey("Press any key to go back to the menu...").then(() => {
-    modules.homepage.open(private_key, public_id);
+    modules.homepage.open(private_key, PublicID);
   });
 }
 
@@ -68,7 +68,7 @@ export async function decrypt(
   aes_key: string,
   encrypted_data: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   try {
     // deno-lint-ignore no-explicit-any
@@ -81,13 +81,13 @@ export async function decrypt(
         isExtractable: false,
       })
       .then((aes_CryptoKey: CryptoKey) => {
-        decrypt_continue(aes_CryptoKey, encrypted_data, private_key, public_id);
+        decrypt_continue(aes_CryptoKey, encrypted_data, private_key, PublicID);
       });
   } catch {
     modules.logo.print();
     console.log(chalk.red("The message you provided was invalid!\n\n"));
     await pressAnyKey("Press any key to go back to the menu...").then(() => {
-      modules.homepage.open(private_key, public_id);
+      modules.homepage.open(private_key, PublicID);
     });
   }
 }
@@ -96,7 +96,7 @@ function decrypt_continue(
   aes_CryptoKey: CryptoKey,
   encrypted_data: string,
   private_key: CryptoKey,
-  public_id: string
+  PublicID: string
 ) {
   // deno-lint-ignore no-explicit-any
   const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
@@ -108,14 +108,14 @@ function decrypt_continue(
       console.log(chalk.green("The message was successfully decrypted."));
       console.log("\n\n" + decrypted_data + "\n\n");
       pressAnyKey("Press any key to go back to the menu...").then(() => {
-        modules.homepage.open(private_key, public_id);
+        modules.homepage.open(private_key, PublicID);
       });
     })
     .catch(async () => {
       modules.logo.print();
       console.log(chalk.red("The message you provided was invalid!\n\n"));
       await pressAnyKey("Press any key to go back to the menu...").then(() => {
-        modules.homepage.open(private_key, public_id);
+        modules.homepage.open(private_key, PublicID);
       });
     });
 }
