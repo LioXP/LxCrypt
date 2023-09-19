@@ -3,7 +3,7 @@ import * as modules from "../module-manager.ts";
 import OpenCrypto from "npm:deno-opencrypto";
 import pressAnyKey from "npm:press-any-key";
 export function encryption_initialization(
-  public_key: string,
+  public_key: string | undefined,
   data: string,
   private_key: CryptoKey,
   PublicID: string

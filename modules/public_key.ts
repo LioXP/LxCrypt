@@ -48,5 +48,5 @@ export async function check(PublicID: string, cert_hash: string) {
     await pressAnyKey("Press any key to go back...").then(() => {
       Deno.exit(1);
     });
-  } else return;
+  } else return web_key_raw;
 }
