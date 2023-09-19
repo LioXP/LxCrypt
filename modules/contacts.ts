@@ -238,26 +238,41 @@ export async function share(private_key: CryptoKey, PublicID: string) {
     },
     { onCancel }
   );
-  if (response.value === "q") {
+  const response_value = response.value.trim().replace(/^0+/, "");
+  if (response_value === "q") {
     modules.homepage.contacts(private_key, PublicID);
-  } else if (response.value === "0") {
+  } else if (response_value === "") {
     const PublicID = fs.readFileSync(modules.config.PublicID_path).toString();
-    console.log(PublicID);
+    modules.logo.print();
+    console.log(chalk.green("This is your PublicID:"));
+    console.log("\n\n" + PublicID + "\n\n");
+    pressAnyKey("Press any key to go back...").then(() => {
+      modules.homepage.contacts(private_key, PublicID);
+    });
   } else {
     if (
-      response.value > db_data.contacts.length ||
-      response.value < 0 ||
-      isNaN(response.value)
+      response_value > db_data.contacts.length ||
+      response_value < 0 ||
+      isNaN(response_value)
     ) {
       share(private_key, PublicID);
     } else {
+      modules.logo.print();
       console.log(
-        db_data.contacts[response.value.trim()].name +
-          "'s public-id: " +
-          db_data.contacts[response.value.trim()].PublicID +
-          "|" +
-          db_data.contacts[response.value.trim()].cert_hash
+        chalk.green(
+          "This is " + db_data.contacts[response_value].name + "'s PublicID:"
+        )
       );
+      console.log(
+        "\n\n" +
+          db_data.contacts[response_value].PublicID +
+          "|" +
+          db_data.contacts[response_value].cert_hash +
+          "\n\n"
+      );
+      pressAnyKey("Press any key to go back...").then(() => {
+        modules.homepage.contacts(private_key, PublicID);
+      });
     }
   }
 }
