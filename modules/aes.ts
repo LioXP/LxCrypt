@@ -2,7 +2,6 @@ import chalk from "npm:chalk";
 import * as modules from "../module-manager.ts";
 import OpenCrypto from "npm:deno-opencrypto";
 import pressAnyKey from "npm:press-any-key";
-import { private_key_aes_length } from "./config.ts";
 export function encryption_initialization(
   public_key: string,
   data: string,
@@ -106,7 +105,12 @@ async function decrypt_continue(
       .decrypt(aes_CryptoKey, encrypted_data, { cipher: "AES-GCM" })
       .then((decrypted_data_buffer: ArrayBufferLike) => {
         const decrypted_data = crypt.arrayBufferToString(decrypted_data_buffer);
-        console.log("\n\n\n" + decrypted_data);
+        modules.logo.print();
+        console.log(chalk.green("The message was successfully decrypted."));
+        console.log("\n\n" + decrypted_data + "\n\n");
+        pressAnyKey("Press any key to go back to the menu...").then(() => {
+          modules.homepage.open(private_key, public_id);
+        });
       });
   } catch {
     modules.logo.print();
