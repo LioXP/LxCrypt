@@ -103,7 +103,7 @@ export function decrypt(
     },
     async () => {
       modules.logo.print();
-      console.log(chalk.red("\nThe message you provided was invalid!\n\n"));
+      console.log(chalk.red("The message you provided was invalid!\n\n"));
       await pressAnyKey("Press any key to go back to the menu...").then(() => {
         modules.homepage.open(private_key, public_id);
       });

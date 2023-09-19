@@ -10,7 +10,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
     {
       type: "text",
       name: "value",
-      message: "Please enter the encrypted message. To go back enter x",
+      message: 'Please enter the encrypted message. To go back type "q"',
       validate: (value: string) =>
         value.trim().length < 1
           ? "The encrypted message is not valid. This message doesn't fit the length criteria of this software."
@@ -18,7 +18,7 @@ export async function start(private_key: CryptoKey, public_id: string) {
     },
     { onCancel }
   );
-  if (response.value === "x") {
+  if (response.value === "q") {
     modules.homepage.open(private_key, public_id);
   } else {
     modules.rsa.decrypt(private_key, response.value.trim(), public_id);

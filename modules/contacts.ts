@@ -118,12 +118,12 @@ export async function remove(private_key: CryptoKey, public_id: string) {
       type: "text",
       name: "value",
       message:
-        'Please choose what contact you want to delete. To go back type "x"',
+        'Please choose what contact you want to delete. To go back type "q"',
     },
     { onCancel }
   );
 
-  if (response.value !== "x") {
+  if (response.value !== "q") {
     const confirm = await prompts(
       {
         type: "confirm",
@@ -175,11 +175,11 @@ export async function share(private_key: CryptoKey, public_id: string) {
       type: "text",
       name: "value",
       message:
-        'Please choose what contact you want to share. To go back type "x"',
+        'Please choose what contact you want to share. To go back type "q"',
     },
     { onCancel }
   );
-  if (response.value === "x") {
+  if (response.value === "q") {
     modules.homepage.contacts(private_key, public_id);
   } else if (response.value === "0") {
     const public_id = fs.readFileSync(modules.config.public_id_path).toString();

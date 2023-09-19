@@ -37,11 +37,15 @@ export async function start(private_key: CryptoKey, public_id: string) {
       type: "text",
       name: "value",
       message:
-        'Please choose who you want to send the message to (use the id). To go back type "x"',
+        'Please choose who you want to send the message to (use the id). To go back type "q"',
+      validate: (value: string) =>
+        value.trim().length < 1
+          ? 'Please enter something. To go back type "q"'
+          : true,
     },
     { onCancel }
   );
-  if (response.value === "x") {
+  if (response.value === "q") {
     modules.homepage.open(private_key, public_id);
   } else if (response.value === "0") {
     const public_key = fs
@@ -51,13 +55,13 @@ export async function start(private_key: CryptoKey, public_id: string) {
       {
         type: "text",
         name: "value",
-        message: "Please enter your message. Type x to go back!",
+        message: 'Please enter your message. To go back type "q"',
         validate: (value: string) =>
           value.trim().length === 0 ? "The message can't be empty!" : true,
       },
       { onCancel }
     );
-    if (data.value === "x") {
+    if (data.value === "q") {
       modules.homepage.open(private_key, public_id);
     } else {
       modules.aes.encryption_initialization(

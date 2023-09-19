@@ -85,38 +85,37 @@ export async function decrypt(
       });
   } catch {
     modules.logo.print();
-    console.log(chalk.red("The message you provided was invalid!"));
+    console.log(chalk.red("The message you provided was invalid!\n\n"));
     await pressAnyKey("Press any key to go back to the menu...").then(() => {
       modules.homepage.open(private_key, public_id);
     });
   }
 }
 
-async function decrypt_continue(
+function decrypt_continue(
   aes_CryptoKey: CryptoKey,
   encrypted_data: string,
   private_key: CryptoKey,
   public_id: string
 ) {
-  try {
-    // deno-lint-ignore no-explicit-any
-    const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
-    crypt
-      .decrypt(aes_CryptoKey, encrypted_data, { cipher: "AES-GCM" })
-      .then((decrypted_data_buffer: ArrayBufferLike) => {
-        const decrypted_data = crypt.arrayBufferToString(decrypted_data_buffer);
-        modules.logo.print();
-        console.log(chalk.green("The message was successfully decrypted."));
-        console.log("\n\n" + decrypted_data + "\n\n");
-        pressAnyKey("Press any key to go back to the menu...").then(() => {
-          modules.homepage.open(private_key, public_id);
-        });
+  // deno-lint-ignore no-explicit-any
+  const crypt = new (OpenCrypto as any as typeof OpenCrypto)();
+  crypt
+    .decrypt(aes_CryptoKey, encrypted_data, { cipher: "AES-GCM" })
+    .then((decrypted_data_buffer: ArrayBufferLike) => {
+      const decrypted_data = crypt.arrayBufferToString(decrypted_data_buffer);
+      modules.logo.print();
+      console.log(chalk.green("The message was successfully decrypted."));
+      console.log("\n\n" + decrypted_data + "\n\n");
+      pressAnyKey("Press any key to go back to the menu...").then(() => {
+        modules.homepage.open(private_key, public_id);
       });
-  } catch {
-    modules.logo.print();
-    console.log(chalk.red("The message you provided was invalid!"));
-    await pressAnyKey("Press any key to go back to the menu...").then(() => {
-      modules.homepage.open(private_key, public_id);
+    })
+    .catch(async () => {
+      modules.logo.print();
+      console.log(chalk.red("The message you provided was invalid!\n\n"));
+      await pressAnyKey("Press any key to go back to the menu...").then(() => {
+        modules.homepage.open(private_key, public_id);
+      });
     });
-  }
 }

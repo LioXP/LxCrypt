@@ -52,13 +52,13 @@ export async function setup() {
       const password_hash = modules.hash.create(password.input);
       return password_hash;
     } else {
-      console.log('You picked "no".');
+      console.log(chalk.red('\nYou picked "no"\n'));
       await pressAnyKey("Press any key to exit...").then(() => {
         Deno.exit(1);
       });
     }
   } else {
-    console.log(chalk.red("Passwords don't match!\n"));
+    console.log(chalk.red("\nPasswords don't match!\n"));
     await pressAnyKey("Press any key to exit...").then(() => {
       Deno.exit(1);
     });
@@ -102,5 +102,12 @@ export async function login() {
     .then((private_key: CryptoKey) => {
       const public_id = fs.readFileSync(modules.config.public_id_path);
       modules.homepage.open(private_key, public_id.toString());
+    })
+    .catch(async () => {
+      modules.logo.print();
+      console.log(chalk.red("The Password you provided was invalid!\n\n"));
+      await pressAnyKey("Press any key to exit...").then(() => {
+        Deno.exit(1);
+      });
     });
 }
