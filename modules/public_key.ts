@@ -53,5 +53,6 @@ export async function check(
     await pressAnyKey("Press any key to go back...").then(() => {
       modules.homepage.contacts(private_key, ownPublicID);
     });
+    return "";
   } else return web_key_raw;
 }

@@ -3,7 +3,7 @@ import OpenCrypto from "npm:deno-opencrypto";
 import pressAnyKey from "npm:press-any-key";
 import chalk from "npm:chalk";
 export function encryption_initialization(
-  public_key: string | undefined,
+  public_key: string,
   data: string,
   private_key: CryptoKey,
   PublicID: string

@@ -131,7 +131,6 @@ export async function remove(private_key: CryptoKey, PublicID: string) {
         name: "value",
         message:
           'Please choose what contact you want to delete. To go back type "q"',
-          
       },
       { onCancel }
     );

@@ -81,7 +81,12 @@ export async function start(private_key: CryptoKey, PublicID: string) {
     } else {
       const PublicID_db = db_data.contacts[response.value].PublicID;
       const cert_hash = db_data.contacts[response.value].cert_hash;
-      const public_key = await modules.public_key.check(PublicID_db, cert_hash);
+      const public_key = await modules.public_key.check(
+        PublicID_db,
+        cert_hash,
+        private_key,
+        PublicID
+      );
       const data = await prompts(
         {
           type: "text",
