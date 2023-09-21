@@ -39,7 +39,7 @@ export async function start(private_key: CryptoKey, PublicID: string) {
       type: "text",
       name: "value",
       message:
-        'Please choose who you want to send the message to (use the id). To go back type "q"',
+        'Please choose who you want to send the message to. Please use the id\'s. To go back type "q"',
       validate: (value: string) =>
         value.trim().length < 1
           ? 'Please enter something. To go back type "q"'

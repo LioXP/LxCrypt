@@ -1,5 +1,6 @@
 import * as modules from "../module-manager.ts";
 import fs from "node:fs";
+import pressAnyKey from "npm:press-any-key";
 
 export async function share() {
   const public_key_file = fs.readFileSync(modules.config.public_key_path);
@@ -28,8 +29,10 @@ async function setup_share(publicPem: string) {
     const id = key + "|" + hash;
     fs.writeFileSync(modules.config.PublicID_path, id);
   } else {
-    console.log("Error!");
-    Deno.exit(1);
+    console.log("Error fetching the PublicID!");
+    await pressAnyKey("Press any key to exit...").then(() => {
+      Deno.exit(1);
+    });
   }
 }
 

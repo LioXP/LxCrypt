@@ -100,7 +100,7 @@ export async function list(private_key: CryptoKey, PublicID: string) {
         },
         {
           title: "exit",
-          description: "exit the application",
+          description: "Exit the application",
           value: 2,
         },
       ],

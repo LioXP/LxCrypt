@@ -44,7 +44,7 @@ export function setup(password_hash: string) {
           spinner.succeed(chalk.green.bold("Initialization successful\n"));
           console.log(
             chalk.blue.bold(
-              "\nThe Setup is complete. Please reopen the Application now.\n\n"
+              "\nThe Setup is complete. Please re-open the application now.\n\n"
             )
           );
 

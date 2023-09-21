@@ -40,8 +40,12 @@ export async function check() {
       public_key_hash !== hashfile.public_key_hash ||
       PublicID_hash !== hashfile.PublicID_hash
     ) {
-      console.log("Hash failed!");
-      Deno.exit(1);
+      console.log(
+        'Due to safety measures we use a hashfile which checks the integrity of your certificates. \nThis safety check failed! Please re-install the app (don\'t forget to delete the "LxCrypt" Folder in your home directory)'
+      );
+      await pressAnyKey("Press any key to exit...").then(() => {
+        Deno.exit(1);
+      });
     }
   } catch {
     fs.rmSync(modules.config.app_folder, {
