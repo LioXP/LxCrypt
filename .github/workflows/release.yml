@@ -17,7 +17,7 @@ jobs:
         with:
           deno-version: v1.x
       - run: deno task build
-      - name: BVAPT #Bump version and push tag
+      - name: BumpVersion
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +26,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{steps.BVAPT.outputs.tag}}
           files: |
             dist/LxCrypt.exe
             dist/LxCrypt
+          tag_name: ${{steps.BumpVersion.outputs.tag}}
