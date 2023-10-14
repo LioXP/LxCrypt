@@ -23,11 +23,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
-      - run: echo "tag=${{steps.BumpVersion.outputs.tag}}" >> "$GITHUB_ENV"
+      - run: echo "tag=${{steps.BumpVersion.outputs.tag}}" >> $GITHUB_OUTPUT
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             dist/LxCrypt.exe
             dist/LxCrypt
-          tag_name: $tag
+          tag_name: ${{ steps.BumpVersion.outputs.tag }}
