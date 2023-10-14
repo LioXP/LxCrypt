@@ -10,14 +10,17 @@ jobs:
   release:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          fetch-depth: "0"
-      - uses: denoland/setup-deno@v1
+          fetch-depth: 0
+      - name: Deno
+        uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
       - run: deno task build
-      - name: BumpVersion
+      - name: Bump version and push tag
+        id: BumpVersion
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -25,8 +28,8 @@ jobs:
           DEFAULT_BUMP: patch
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             dist/LxCrypt.exe
             dist/LxCrypt
+          tag_name: ${{steps.BumpVersion.outputs.tag}}
