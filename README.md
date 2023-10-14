@@ -34,7 +34,7 @@ Sadly this means that you will have to reset the application, and that you won't
 
 #### Why should I trust you?
 
-You shouldn't trust anybody, which is why I made this project completly open-source. This means you can view the Code yourself. The full project code is published in this GitHub repository!
+You shouldn't trust anybody, which is why I made this project completely open-source. This means you can view the Code yourself. The full project code is published in this GitHub repository!
 
 ## Detailed technical explanation
 
