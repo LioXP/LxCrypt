@@ -32,16 +32,17 @@ Sadly this means that you will have to reset the application, and that you won't
 
 **No!** Everything regarding the encryption is done locally. The only thing which is stored online is your _public_-key. But like the name already hints, it's supposed to be public :)
 
-#### How does the the encryption work?
+#### Why should I trust you?
 
-For more technical information please look [here](#Tech)!
+You shouldn't trust anybody, which is why I made this project completly open-source. This means you can view the Code yourself. The full project code is published in this GitHub repository!
 
-## Tech
+## Detailed technical explanation
 
 _Please note that this is advanced, and you don't have to understand it to use the software!_
 
 LxCrypt uses a technology called [**hybrid-encryption**](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) with AES and RSA.
 Here is an image showing how it's implemented in LxCrypt.
+
 ![Image](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/hybrid-encryption.png)
 
 ## Screenshots
