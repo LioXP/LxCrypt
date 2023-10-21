@@ -62,9 +62,9 @@ Here are two images showing how it's implemented in LxCrypt.
 
 ## Screenshots
 
-|             Homepage              |            Encryption             |            Decryption             |             Contacts              |
-| :-------------------------------: | :-------------------------------: | :-------------------------------: | :-------------------------------: |
-| ![](https://placehold.co/100x100) | ![](https://placehold.co/100x100) | ![](https://placehold.co/100x100) | ![](https://placehold.co/100x100) |
+|                                 Homepage                                  |                                 Encryption                                  |                                 Decryption                                  |                                 Contacts                                  |
+| :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png) |
 
 ## Authors
 
