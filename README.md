@@ -62,9 +62,33 @@ Here are two images showing how it's implemented in LxCrypt.
 
 ## Screenshots
 
-|                                 Homepage                                  |                                 Encryption                                  |                                 Decryption                                  |                                 Contacts                                  |
-| :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
-| ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png) | ![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png) |
+<details>
+<summary>Homepage</summary>
+
+![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png)
+
+</details>
+
+<details>
+<summary>Encryption</summary>
+
+![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png)
+
+</details>
+
+<details>
+<summary>Decryption</summary>
+
+![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png)
+
+</details>
+
+<details>
+<summary>Contacts</summary>
+
+![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png)
+
+</details>
 
 ## Authors
 
