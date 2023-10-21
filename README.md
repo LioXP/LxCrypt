@@ -4,9 +4,14 @@
 
 An easy to use, secure and still very powerful Encryption Software.
 
-## Demo
+</details>
+
+<details>
+<summary>Demo Gif</summary>
 
 ![Demo](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/demo.gif)
+
+</details>
 
 ## Documentation
 
