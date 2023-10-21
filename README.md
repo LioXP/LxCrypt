@@ -6,7 +6,7 @@ An easy to use, secure and still very powerful Encryption Software.
 
 ## Demo
 
-![Demo](https://placehold.co/2160x1080)
+![Demo](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/demo.gif)
 
 ## Documentation
 
