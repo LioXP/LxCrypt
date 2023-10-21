@@ -6,23 +6,7 @@ An easy to use, secure and still very powerful Encryption Software.
 
 ## Demo
 
-<img src="https://s6.gifyu.com/images/S6OXf.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OX5.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXr.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXY.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXt.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXo.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXD.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OX1.gif" alt="" border="0" height="400" width="800">
-
-<img src="https://s6.gifyu.com/images/S6OXA.gif" alt="" border="0" height="400" width="800">
+![Demo](https://placehold.co/2160x1080)
 
 ## Documentation
 
