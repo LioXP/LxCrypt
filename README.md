@@ -43,8 +43,19 @@ _Please note that this is advanced, and you don't have to understand it to use t
 LxCrypt uses a technology called [**hybrid-encryption**](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) with AES and RSA.
 Here is an image showing how it's implemented in LxCrypt.
 
-![Image](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/hybrid_encryption.png)
-![Image](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/hybrid_decryption.png)
+<details>
+<summary>Encryption Image</summary>
+
+![Encryption]()
+
+</details>
+
+<details>
+<summary>Decryption Image</summary>
+
+![Decryption]()
+
+</details>
 
 ## Screenshots
 
