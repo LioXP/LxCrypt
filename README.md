@@ -2,11 +2,27 @@
 
 # LxCrypt
 
-A easy to use and still very powerful encryption & decryption tool.
+An easy to use, secure and still very powerful Encryption Software.
 
 ## Demo
 
-![Demo](https://placehold.co/500x200)
+<img src="https://s6.gifyu.com/images/S6OXf.gif" alt="" border="0" height="200" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OX5.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXr.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXY.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXt.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXo.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXD.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OX1.gif" alt="" border="0" height="200" width="400">
+
+<img src="https://s6.gifyu.com/images/S6OXA.gif" alt="" border="0" height="200" width="400">
 
 ## Documentation
 
@@ -15,7 +31,7 @@ A easy to use and still very powerful encryption & decryption tool.
 - Encryption
 - Decryption
 - Certificate Database
-- Easy and secure hybrid-encryption (AES + RSA)
+- Easy to use UI
 
 ## FAQ
 
@@ -40,20 +56,20 @@ You shouldn't trust anybody, which is why I made this project completely open-so
 
 _Please note that this is advanced, and you don't have to understand it to use the software!_
 
-LxCrypt uses a technology called [**hybrid-encryption**](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) with AES and RSA.
+LxCrypt uses a technology called hybrid-encryption with AES and RSA.
 Here is an image showing how it's implemented in LxCrypt.
 
 <details>
 <summary>Encryption Image</summary>
 
-![Encryption]()
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-encryption.png)
 
 </details>
 
 <details>
 <summary>Decryption Image</summary>
 
-![Decryption]()
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-decryption.png)
 
 </details>
 
