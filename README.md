@@ -44,17 +44,17 @@ You shouldn't trust anybody, which is why I made this project completely open-so
 _Please note that this is advanced, and you don't have to understand it to use the software!_
 
 LxCrypt uses a technology called hybrid-encryption with AES and RSA.
-Here is an image showing how it's implemented in LxCrypt.
+Here are two images showing how it's implemented in LxCrypt.
 
 <details>
-<summary>Encryption Image</summary>
+<summary>Encryption</summary>
 
 ![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-encryption.png)
 
 </details>
 
 <details>
-<summary>Decryption Image</summary>
+<summary>Decryption</summary>
 
 ![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-decryption.png)
 
