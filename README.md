@@ -15,7 +15,7 @@ An easy to use, secure and still very powerful Encryption Software.
 
 - Encryption
 - Decryption
-- Certificate Database
+- Certificate Store
 - Easy to use UI
 
 ## Download
@@ -54,11 +54,11 @@ You can download the latest stable release down below.
 
 #### Is this secure?
 
-Yes! LxCrypt uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with an 256bit key and [RSA](<https://en.wikipedia.org/wiki/RSA_(cryptosystem)>) with a 4096 bit key. Both of those algorithms are considered very safe.
+**Yes!** LxCrypt uses [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) with an 256bit key and [RSA](<https://en.wikipedia.org/wiki/RSA_(cryptosystem)>) with a 4096 bit key. Both of those algorithms are considered very safe.
 
 #### What happens if I forget my password?
 
-Because we encrypt your private key with this password, and only store it on your machine, there is no way for us to decrypt the key for you.
+Because we encrypt your private key with this password, and only store it on your machine, **there is no way for us to decrypt the private key for you**.
 Sadly this means that you will have to reset the application, and that you won't be able to decrypt any messages which were send to you before the reset.
 
 #### Is any data send to your server?
@@ -67,7 +67,7 @@ Sadly this means that you will have to reset the application, and that you won't
 
 #### Why should I trust you?
 
-You shouldn't trust anybody, which is why I made this project completely open-source. This means you can view the Code yourself. The full project code is published in this GitHub repository!
+You shouldn't trust anybody, which is why **I made this project completely open-source**. This means you can view the Code yourself. The full project code is published in this GitHub repository!
 
 ## Detailed technical explanation
 
