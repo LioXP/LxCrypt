@@ -13,6 +13,20 @@ An easy to use, secure and still very powerful Encryption Software.
 
 ## Documentation
 
+<details>
+<summary>Windows 🪟</summary>
+
+Hello
+
+</details>
+<br>
+<details>
+<summary>Linux 🐧</summary>
+
+Hello
+
+</details>
+
 ## Features
 
 - Encryption
@@ -65,28 +79,28 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Homepage</summary>
 
-![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png)
+![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png)
 
 </details>
 
 <details>
 <summary>Encryption</summary>
 
-![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png)
 
 </details>
 
 <details>
 <summary>Contacts</summary>
 
-![](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png)
+!Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png)
 
 </details>
 
