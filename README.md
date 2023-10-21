@@ -11,28 +11,36 @@ An easy to use, secure and still very powerful Encryption Software.
 
 </details>
 
-## Documentation
-
-<details>
-<summary>Windows 🪟</summary>
-
-Hello
-
-</details>
-<br>
-<details>
-<summary>Linux 🐧</summary>
-
-Hello
-
-</details>
-
 ## Features
 
 - Encryption
 - Decryption
 - Certificate Database
 - Easy to use UI
+
+## Download
+
+You can download the latest stable release down below.
+
+| Windows 🪟                                                                        | Linux 🐧                                                                      |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt.exe) | [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt) |
+
+## Documentation
+
+<details>
+<summary>Windows 🪟</summary>
+
+1. Download the LxCrypt.exe File (here)
+
+</details>
+
+<details>
+<summary>Linux 🐧</summary>
+
+Hello
+
+</details>
 
 ## FAQ
 
