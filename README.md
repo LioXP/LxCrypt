@@ -42,7 +42,7 @@ You can download the latest stable release below.
 <summary>Linux 🐧</summary>
 
 1. Download the LxCrypt file.
-2. Open the folder where you put the file, and run: `./LxCrypt`
+2. Open the folder where you put the file, and run `./LxCrypt`.
 
 - For easier access, you can create an alias in your shell.
   - ZSH: [Tutorial](https://linuxhint.com/configure-use-aliases-zsh/)
