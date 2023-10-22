@@ -1,7 +1,7 @@
 import os from "node:os";
 import path from "node:path";
 
-export const app_folder = path.join(os.homedir(), "LxCrypt");
+export const app_folder = path.join(os.homedir(), ".lxcrypt");
 
 export const rsa_key_size = 4096;
 export const rsa_key_hash = "SHA-512";
