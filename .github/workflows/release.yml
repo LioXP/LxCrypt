@@ -26,7 +26,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: minor
-          INITIAL_VERSION: 0.9.9
+          INITIAL_VERSION: 1.0.0
+          NONE_STRING_TOKEN: #initial
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
