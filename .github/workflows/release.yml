@@ -26,6 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: minor
+          INITIAL_VERSION: 1.0.0
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -33,3 +34,4 @@ jobs:
             dist/LxCrypt.exe
             dist/LxCrypt
           tag_name: ${{steps.BumpVersion.outputs.tag}}
+          body_path: .github/release_notes.txt
