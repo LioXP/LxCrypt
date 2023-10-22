@@ -95,28 +95,28 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Homepage</summary>
 
-![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Homepage.png)
+![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/homepage.png)
 
 </details>
 
 <details>
 <summary>Encryption</summary>
 
-![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/encryption.png)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/decryption.png)
 
 </details>
 
 <details>
 <summary>Contacts</summary>
 
-!Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/Contacts.png)
+![Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/contacts.png)
 
 </details>
 
