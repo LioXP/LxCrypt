@@ -7,7 +7,7 @@ An easy-to-use, secure and still very powerful encryption software
 <details>
 <summary>Demo</summary>
 
-![Demo](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/demo.gif)
+![Demo](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/demo.gif)
 
 </details>
 
@@ -78,14 +78,14 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Encryption</summary>
 
-![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-encryption.png)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/LxCrypt-decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-decryption.png)
 
 </details>
 
@@ -94,28 +94,28 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Homepage</summary>
 
-![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/homepage.png)
+![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/homepage.png)
 
 </details>
 
 <details>
 <summary>Encryption</summary>
 
-![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/encryption.png)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/decryption.png)
 
 </details>
 
 <details>
 <summary>Contacts</summary>
 
-![Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/dev/img/contacts.png)
+![Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/contacts.png)
 
 </details>
 
