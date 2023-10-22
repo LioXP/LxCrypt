@@ -41,10 +41,6 @@ You can download the latest stable release below.
 <details>
 <summary>Linux 🐧</summary>
 
-<<<<<<< Updated upstream
-1. Download the LxCrypt file.
-2. Open the folder where you put the file, and run: `./LxCrypt`
-=======
 1. Download the LxCrypt file. For example like this:
 
 ```
@@ -53,7 +49,6 @@ curl -O -L https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt
 
 2. Run `chmod +x LxCrypt` (only needed once).
 3. Run `./LxCrypt` to start the application.
->>>>>>> Stashed changes
 
 - For easier access, you can create an alias in your shell.
   - ZSH: [Tutorial](https://linuxhint.com/configure-use-aliases-zsh/)
