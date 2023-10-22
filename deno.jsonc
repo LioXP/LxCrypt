@@ -2,7 +2,7 @@
   "tasks": {
     "start": "deno run -A main.ts",
     "update": "rm -rf deno.lock && rm -rf /home/lionel/.cache/deno && deno cache --reload main.ts",
-    "cspell": "cspell  \".github/release_notes.txt\" \"modules/**\" \"**.md\"",
+    "spellcheck": "cspell  \".github/release_notes.txt\" \"modules/**\" \"**.md\"",
     "build": "deno compile --allow-all --reload --output dist/LxCrypt.exe --target x86_64-pc-windows-msvc main.ts && deno compile --allow-all --reload --output dist/LxCrypt --target x86_64-unknown-linux-gnu main.ts"
   }
 }
