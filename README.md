@@ -31,7 +31,7 @@ You can download the latest stable release below.
 <details>
 <summary>Windows 🪟</summary>
 
-1. Download the LxCrypt.exe file ([here](https://github.com/LioXP/LxCrypt/tree/dev#download))
+1. Download the LxCrypt.exe file
 2. Execute (double-click) it and follow the instructions on your screen.
 
 - For easier access, just put the file on your desktop.
@@ -41,7 +41,7 @@ You can download the latest stable release below.
 <details>
 <summary>Linux 🐧</summary>
 
-1. Download the LxCrypt file ([here](https://github.com/LioXP/LxCrypt/tree/dev#download))
+1. Download the LxCrypt file
 2. Open the folder where you put the file, and run: `./LxCrypt`
 
 - For easier access, you can create an alias in your shell.
