@@ -39,7 +39,7 @@ export function setup(password_hash: string) {
             modules.config.private_key_path,
             encryptedPrivateKey
           );
-          await modules.public_key.share();
+          await modules.public_key.share(spinner);
           modules.hashfile.create();
           spinner.succeed(chalk.green.bold("Initialization successful\n"));
           console.log(

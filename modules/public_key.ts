@@ -1,12 +1,15 @@
 import * as modules from "../module-manager.ts";
 import fs from "node:fs";
 import pressAnyKey from "npm:press-any-key";
+import chalk from "npm:chalk";
 
-export async function share() {
+// deno-lint-ignore no-explicit-any
+export async function share(spinner: any) {
   const public_key_file = fs.readFileSync(modules.config.public_key_path);
-  await setup_share(public_key_file.toString());
+  await setup_share(public_key_file.toString(), spinner);
 }
-async function setup_share(publicPem: string) {
+// deno-lint-ignore no-explicit-any
+async function setup_share(publicPem: string, spinner: any) {
   const public_key = encodeURIComponent(publicPem);
   const body = `content=${public_key}&expiry_days=365`;
   const req = await fetch(modules.config.paste_api, {
@@ -29,7 +32,7 @@ async function setup_share(publicPem: string) {
     const id = key + "|" + hash;
     fs.writeFileSync(modules.config.PublicID_path, id);
   } else {
-    console.log("Error fetching the PublicID!");
+    spinner.fail(chalk.red("Error fetching the PublicID! Try again later!\n"));
     await pressAnyKey("Press any key to exit...").then(() => {
       Deno.exit(1);
     });
