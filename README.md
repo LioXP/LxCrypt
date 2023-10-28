@@ -84,14 +84,14 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Encryption</summary>
 
-![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-encryption.webp)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/LxCrypt-decryption.webp)
 
 </details>
 
@@ -100,28 +100,28 @@ Here are two images showing how it's implemented in LxCrypt.
 <details>
 <summary>Homepage</summary>
 
-![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/homepage.png)
+![Homepage](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/homepage.webp)
 
 </details>
 
 <details>
 <summary>Encryption</summary>
 
-![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/encryption.png)
+![Encryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/encryption.webp)
 
 </details>
 
 <details>
 <summary>Decryption</summary>
 
-![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/decryption.png)
+![Decryption](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/decryption.webp)
 
 </details>
 
 <details>
 <summary>Contacts</summary>
 
-![Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/contacts.png)
+![Contacts](https://raw.githubusercontent.com/LioXP/LxCrypt/main/img/contacts.webp)
 
 </details>
 
