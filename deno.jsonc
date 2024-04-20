@@ -2,7 +2,9 @@
   "tasks": {
     "start": "deno run -A main.ts",
     "update": "rm -rf deno.lock && rm -rf $HOME/.cache/deno && deno cache --reload main.ts",
+    "optimize": "`for file in img/*; do cwebp -q 100 \"$file\" -o \"${file%.*}.webp\"; done`",
     "build": "deno compile --allow-all --reload --output dist/LxCrypt.exe --target x86_64-pc-windows-msvc main.ts && deno compile --allow-all --reload --output dist/LxCrypt --target x86_64-unknown-linux-gnu main.ts",
-    "optimize": "`for file in img/*; do cwebp -q 100 \"$file\" -o \"${file%.*}.webp\"; done`"
+    //NOTE: only works on Linux
+    "release": "mv dist/LxCrypt dist/LxCrypt-linux && mv dist/LxCrypt.exe dist/LxCrypt-windows.exe"
   }
 }

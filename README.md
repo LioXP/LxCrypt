@@ -22,16 +22,16 @@ An easy-to-use, secure and still very powerful encryption software
 
 You can download the latest stable release below.
 
-| Windows 🪟                                                                        | Linux 🐧                                                                      |
-| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt.exe) | [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt) |
+| Windows 🪟                                                                                | Linux 🐧                                                                            |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt-windows.exe) | [Download](https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt-linux) |
 
 ## Documentation
 
 <details>
 <summary>Windows 🪟</summary>
 
-1. Download the LxCrypt.exe file.
+1. Download the LxCrypt-windows.exe file.
 2. Execute (double-click) it and follow the instructions on your screen.
 
 - For easier access, just put the file on your desktop.
@@ -41,14 +41,14 @@ You can download the latest stable release below.
 <details>
 <summary>Linux 🐧</summary>
 
-1. Download the LxCrypt file. For example like this:
+1. Download the LxCrypt-linux file. For example like this:
 
 ```
-curl -O -L https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt
+curl -O -L https://github.com/LioXP/LxCrypt/releases/latest/download/LxCrypt-linux
 ```
 
-2. Run `chmod +x LxCrypt` (only needed once).
-3. Run `./LxCrypt` to start the application.
+2. Run `chmod +x LxCrypt-linux` (only needed once).
+3. Run `./LxCrypt-linux` to start the application.
 
 - For easier access, you can create an alias in your shell.
   - ZSH: [Tutorial](https://linuxhint.com/configure-use-aliases-zsh/)
